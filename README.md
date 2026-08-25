@@ -9,7 +9,7 @@
 ---
 
 <p align="center">
-  <b>Instituciones y Proyectos Colaboradores:</b><br><br>
+  <b>Instituciones patrocinadoras:</b><br><br>
   <img src="docs/images/logo_inca.png" height="60" alt="INCA"> &nbsp;&nbsp;&nbsp;
   <img src="docs/images/logo_aecid.png" height="60" alt="AECID"> &nbsp;&nbsp;&nbsp;
   <img src="docs/images/logo_cerai.png" height="60" alt="CERAI">
