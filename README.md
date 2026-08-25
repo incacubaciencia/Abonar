@@ -1,24 +1,25 @@
 # Abonar
 
-<p align="center">
-  <img src="docs/images/logo_proyecto.png" width="300" alt="Logo Abonar">
+<p >
+  <img src="docs/images/nombre.png" alt="Logo Abonar">
 </p>
 
-**Abonar** es una aplicación Android diseñada para la gestión y optimización de abonos verdes.
+**Abonar** es una aplicación Android diseñada para el calculo de las dosis de abonos a aplicar en los diferentes cultivos.
 
 ---
 
-<p align="center">
+<p >
   <b>Instituciones y Proyectos Colaboradores:</b><br><br>
-  <img src="docs/images/logo_inca.png" height="60" alt="INCA"> &nbsp;&nbsp;&nbsp;
-  <img src="docs/images/logo_aecid.png" height="60" alt="AECID"> &nbsp;&nbsp;&nbsp;
-  <img src="docs/images/logo_cerai.png" height="60" alt="CERAI">
+  <img src="docs/images/logo_inca.png"  alt="INCA"> &nbsp;&nbsp;&nbsp;
+  <img src="docs/images/logo_aecid.png"  alt="AECID"> &nbsp;&nbsp;&nbsp;
+  <img src="docs/images/logo_cerai.png" alt="CERAI">
 </p>
 
 ## 🚀 Características
 
-- Gestión de cultivos de abonos verdes.
+- Visualizacion de los datos diferentes cultivos.
 - Seguimiento de nutrición y suelos.
+- Base de datos Interna Inicial y actualizable desde una web autimaticamente.
 - Interfaz moderna construida íntegramente con **Jetpack Compose**.
 - Inyección de dependencias con **Hilt**.
 - Persistencia de datos local con **Room**.
