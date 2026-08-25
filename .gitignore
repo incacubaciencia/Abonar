@@ -1,0 +1,35 @@
+# Gradle files
+.gradle/
+build/
+
+# Android Studio files
+*.iml
+.idea/
+local.properties
+.externalNativeBuild/
+.cxx/
+captures/
+.navigation/
+
+# Kotlin files
+.kotlin/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Secrets
+secrets.xml
+google-services.json
+
+# Build Outputs
+*.apk
+*.aar
+*.ap_
+*.aab
+
+# Artifacts directory (if specific to this tool)
+.artifacts/
+.agent/
+input_images/
+generated_chunks.txt

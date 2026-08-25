@@ -1,0 +1,259 @@
+<resources>
+    <string name="app_name">Abonar</string>
+
+    <!-- Navigation -->
+    <string name="nav_inicio">Home</string>
+    <string name="nav_cultivos">Crops</string>
+    <string name="nav_fincas">Farms</string>
+    <string name="nav_fertilizantes">Fertilizers &amp; Manures</string>
+    <string name="nav_calculadora">Calculator</string>
+    <string name="nav_guia">User Guide</string>
+    <string name="menu_desc">Menu</string>
+    <string name="back_desc">Back</string>
+    <string name="logo_desc">Logo</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Home</string>
+    <string name="welcome_message">Welcome to Abonar</string>
+    <string name="calculator_title">Calculator</string>
+    <string name="calculator_desc">Calculate the optimal organic fertilizer dose.</string>
+    <string name="sync_title">Data Synchronization</string>
+    <string name="sync_running">Synchronizing...</string>
+    <string name="sync_enqueued">Next synchronization pending</string>
+    <string name="sync_last_attempt">Last attempt: %1$s</string>
+    <string name="sync_unknown">Unknown state</string>
+
+    <!-- Fincas Screen -->
+    <string name="fincas_title">Farms</string>
+    <string name="search_finca">Search farm...</string>
+    <string name="select_finca">Select a farm</string>
+    <string name="provincia_label">Province: %1$s</string>
+    <string name="municipio_label">Municipality: %1$s</string>
+    <string name="tipo_suelo">Soil Type</string>
+    <string name="ph_label">pH</string>
+    <string name="mo_percent">OM %</string>
+    <string name="calcio">Calcium (Ca)</string>
+    <string name="magnesio">Magnesium (Mg)</string>
+    <string name="potasio">Potassium (K)</string>
+    <string name="sodio">Sodium (Na)</string>
+    <string name="fosforo">Phosphorus (P)</string>
+
+    <!-- Guía Screen -->
+    <string name="guia_title">User Guide</string>
+    <string name="guia_card_title">User Guide</string>
+    <string name="guia_card_desc">Learn how to use the application step by step and download the manual.</string>
+    <string name="como_usar">How to use Abonar</string>
+    <string name="export_pdf">Export Guide as PDF</string>
+    <string name="export_pdf_filename">Abonar Application User Guide.pdf</string>
+    <string name="test_dashboard_title">Test Title</string>
+    <string name="test_dashboard_desc">This is a test description for the dashboard card.</string>
+    <string name="export_success">Guide exported successfully</string>
+    <string name="export_error">Error exporting the guide</string>
+    <string name="section_base">Base Modules</string>
+    <string name="section_calculator">Dose Calculator (Step by step)</string>
+    <string name="step_1_title">1. Farm Selection</string>
+    <string name="step_1_desc">Choose the farm or location where the fertilizer will be applied.</string>
+    <string name="step_2_title">2. Crop Selection</string>
+    <string name="step_2_desc">Select the crop you want to fertilize to load its requirements.</string>
+    <string name="step_3_title">3. Expected Yield</string>
+    <string name="step_3_desc">Enter the target yield. The system will convert units automatically.</string>
+    <string name="step_4_title">4. Nutrient Availability</string>
+    <string name="step_4_desc">Select the type of organic fertilizer available.</string>
+    <string name="step_5_title">5. Results and Report</string>
+    <string name="step_5_desc">Review the final recommendation and calculation details.</string>
+    <string name="image_placeholder">Image: %1$s</string>
+    <string name="reg_fertilizantes_title">Fertilizers and Manures Registry</string>
+    <string name="reg_fertilizantes_desc">Here you can consult the nutritional composition of the fertilizers and organic manures available in the application.</string>
+    <string name="reg_fincas_title">Farm and Soil Registry</string>
+    <string name="reg_fincas_desc">Here you can view the laboratory analysis results of your soils. This data is automatically synchronized from the web platform once registered there.</string>
+    <string name="reg_cultivos_title">Crop Registry</string>
+    <string name="reg_cultivos_desc">In the Crops section, you can see the nutritional requirements of different plants. This data is essential for the calculator to work correctly.</string>
+    <string name="calc_abonos_title">Fertilizer Calculator</string>
+    <string name="calc_abonos_desc">Select a crop and soil, enter the expected yield, and you will get the recommended organic fertilizer dose for your plot.</string>
+    <string name="sync_cloud_title">Cloud Sync</string>
+    <string name="sync_cloud_desc">The application automatically synchronizes with INCA servers to ensure you always have the most up-to-date technical parameters.</string>
+
+    <!-- Calculator Screen -->
+    <string name="calc_complete_data">Complete data to calculate dose</string>
+    <string name="select_cultivo">Select a crop</string>
+    <string name="cultivo_label">Crop</string>
+    <string name="select_finca_suelo">Select a farm/soil</string>
+    <string name="finca_suelo_label">Farm/Soil</string>
+    <string name="yield_label">Expected Yield</string>
+    <string name="btn_calcular">Calculate Dose</string>
+    <string name="calc_result_title">Calculation Result</string>
+    <string name="dosis_recomendada">Recommended Dose: %1$.2f t/ha</string>
+    <string name="calc_result_success">You should apply a dose of %1$.2f kg/ha of %2$s to obtain an optimal result for %3$s.</string>
+    <string name="calc_result_not_needed">It is not necessary to apply nutrients to your soil, it is correctly supplied with nutrients (N, P, K) and it is not necessary to fertilize to obtain the expected yield you indicated.</string>
+    <string name="calc_result_missing_nutrient">The selected fertilizer does not contain %1$s. Please select another fertilizer.</string>
+    <string name="unit_kg_ha">kg/ha</string>
+    <string name="unit_t_ha">tons/ha</string>
+    <string name="unit_t_cordel">tons/cordel</string>
+    <string name="unit_t_besana">tons/besana</string>
+    <string name="unit_q_ha">quintals/ha</string>
+    <string name="unit_q_cordel">quintals/cordel</string>
+    <string name="unit_q_besana">quintals/besana</string>
+    <string name="unit_t_ha_short">T/ha</string>
+    <string name="soil_char_red_yellow">red or yellow</string>
+    <string name="soil_char_reddish_brown">Medium reddish brown</string>
+    <string name="soil_char_brown_gray">Brown or Gray</string>
+    <string name="soil_char_black_loose">Black and Loose</string>
+    <string name="soil_char_black_compact">Black and compact</string>
+    <string name="soil_char_gray_spots">They have grey spots in the depth</string>
+    <string name="soil_char_white_spots">Has white spots and grass hardly grows</string>
+    <string name="calc_reset">Perform new calculation</string>
+    <string name="calc_fert_select_finca_error">Please select your farm in the first step to use your fertility analysis data.</string>
+    <string name="calc_report_title">Calculation Report</string>
+    <string name="calc_validation_alert">Validation Alert</string>
+    <string name="calc_input_data">Input Data:</string>
+    <string name="calc_intermediate_results">Intermediate Calculations:</string>
+    <string name="calc_final_recommendation">Final Recommendation:</string>
+    <string name="mo_base">Base Organic Matter (MO)</string>
+    <string name="p_base">Base Phosphorus (P)</string>
+    <string name="k_base">Base Potassium (K)</string>
+    <string name="yield_input">Entered Yield</string>
+    <string name="req_n">Crop Req. Nitrogen (N)</string>
+    <string name="req_p">Crop Req. Phosphorus (P)</string>
+    <string name="req_k">Crop Req. Potassium (K)</string>
+    <string name="fert_nutrient_prefix">Nutrient in Fertilizer (%1$s)</string>
+    <string name="soil_disp_n">Soil Availability N</string>
+    <string name="soil_disp_p">Soil Availability P</string>
+    <string name="soil_disp_k">Soil Availability K</string>
+    <string name="yield_norm">Normalized Yield</string>
+    <string name="base_dose_n">Base Dose Nitrogen (N)</string>
+    <string name="base_dose_p">Base Dose Phosphorus (P)</string>
+    <string name="base_dose_k">Base Dose Potassium (K)</string>
+    <string name="limiting_nutrient">Limiting Nutrient (Highest)</string>
+    <string name="kg_ha_unit">%1$.5f kg/ha</string>
+    <string name="t_ha_unit">%1$.5f T/ha</string>
+    <string name="percent_unit">%1$.5f %%</string>
+
+    <string name="calc_step_finca">Farm Selection</string>
+    <string name="calc_finca_optional">Farm (Optional)</string>
+    <string name="calc_finca_auto_loaded">Farm data has been automatically loaded: %1$s</string>
+
+    <string name="calc_step_tipo_suelo">Soil Type</string>
+    <string name="calc_conoce_tipo_suelo">Do you know your soil type?</string>
+    <string name="calc_color_suelo_ques">What color is your soil?</string>
+
+    <string name="calc_step_fertilidad">Fertility Analysis</string>
+    <string name="calc_realizo_analisis_fert">Have you performed a fertility analysis on your soil?</string>
+    <string name="calc_fert_info_auto">Data will be loaded from the database based on location.</string>
+    <string name="calc_provincia">Province</string>
+    <string name="calc_municipio">Municipality</string>
+
+    <string name="calc_step_cultivo">Crop Type</string>
+    <string name="calc_cultivo_ques">Which type of crop will you fertilize?</string>
+
+    <string name="calc_step_rendimiento">Farm Yield</string>
+    <string name="calc_conoce_rendimiento">Do you know your farm\'s yield?</string>
+    <string name="calc_rendimiento_value">Yield value</string>
+
+    <string name="calc_step_nutrientes">Available nutrient source</string>
+    <string name="calc_nutrientes_ques">What type of nutrient source do you have?</string>
+    <string name="calc_select_nutrient_type">Select your available nutrient source</string>
+
+    <string name="calc_step_abono_verde">Green Manures</string>
+    <string name="calc_utilizo_abono_verde_ques">Did you use green manures?</string>
+    <string name="calc_select_abono_verde">Select the green manure used</string>
+    <string name="calc_result_green_covers_all">The green manure %1$s used covers your crop\'s nutrient needs.</string>
+    <string name="calc_result_green_complement">It is necessary to complement the green manure %1$s with the addition of a low dose of mineral fertilizer or organic manure to the crop.</string>
+    <string name="av_base_value">Green Manure Nutrient Contribution (%1$s)</string>
+    <string name="remaining_nutrient_need">Remaining Nutrient Need</string>
+    <string name="complementary_dose_label">Complementary Dose to Apply</string>
+
+    <string name="si">Yes</string>
+    <string name="no">No</string>
+
+    <string-array name="suelo_colores">
+        <item>Red or yellow</item>
+        <item>Medium reddish brown</item>
+        <item>Brown or gray</item>
+        <item>Black and loose</item>
+        <item>Black and compact with surface cracks</item>
+        <item>Has gray spots at depth</item>
+        <item>Has white surface spots and grass barely grows</item>
+    </string-array>
+
+    <string-array name="provincias_cuba">
+        <item>Pinar del Río</item>
+        <item>Artemisa</item>
+        <item>Havana</item>
+        <item>Mayabeque</item>
+        <item>Matanzas</item>
+        <item>Cienfuegos</item>
+        <item>Villa Clara</item>
+        <item>Sancti Spíritus</item>
+        <item>Ciego de Ávila</item>
+        <item>Camagüey</item>
+        <item>Las Tunas</item>
+        <item>Holguín</item>
+        <item>Granma</item>
+        <item>Santiago de Cuba</item>
+        <item>Guantánamo</item>
+        <item>Isle of Youth</item>
+    </string-array>
+
+    <string-array name="rendimiento_unidades">
+        <item>quintals/ha</item>
+        <item>quintals/cordel</item>
+        <item>quintals/besana</item>
+        <item>tons/ha</item>
+        <item>tons/cordel</item>
+        <item>tons/besana</item>
+    </string-array>
+
+    <!-- Cultivos Screen -->
+    <string name="cultivos_title">Crops</string>
+    <string name="search_cultivo">Search crop...</string>
+    <string name="no_results">No results found</string>
+    <string name="select_cultivo_detail">Select a crop</string>
+    <string name="tech_info">Technical Information</string>
+    <string name="tipo_label">Type</string>
+    <string name="yield_expected">Expected Yield</string>
+    <string name="ph_min">Min pH</string>
+    <string name="ph_max">Max pH</string>
+    <string name="nutritional_req">Nutritional Requirements</string>
+    <string name="npk_label">N: %1$s | P: %2$s | K: %3$s</string>
+    <string name="nitrogeno">Nitrogen (N)</string>
+    <string name="fosforo_full">Phosphorus (P)</string>
+    <string name="potasio_full">Potassium (K)</string>
+    <string name="rend_prefix">Yield: %1$s t/ha</string>
+    <string name="ph_prefix">pH: %1$s</string>
+
+    <!-- Fertilizantes Screen -->
+    <string name="fert_title">Fertilizers and Manures</string>
+    <string name="search_fert">Search fertilizer...</string>
+    <string name="select_fert">Select a fertilizer</string>
+    <string name="humedad_percent">% Humidity</string>
+    <string name="rel_cn">C/N Ratio</string>
+    <string name="mat_org">Organic Matter</string>
+    <string name="nutritional_content">Nutritional Content</string>
+    <string name="fert_type_mineral">Mineral Fertilizers</string>
+    <string name="fert_type_organo_mineral">Organo-mineral Fertilizers</string>
+    <string name="fert_type_organic">Organic Manures</string>
+    <string name="fert_type_green">Green Manures</string>
+    <string name="percent_unit_display">%1$.2f%%</string>
+    <string name="kg_ha_unit_display">%1$.2f kg/ha</string>
+    <string name="npk_display_format">N: %1$s | P: %2$s | K: %3$s</string>
+
+    <!-- Onboarding Screen -->
+    <string name="btn_skip">Skip</string>
+    <string name="btn_next">Next</string>
+    <string name="btn_get_started">Get Started</string>
+    <string name="onboarding_1_title">Farm &amp; Crop Registry</string>
+    <string name="onboarding_1_desc">Manage your agricultural data with ease. Track your farms and specific crop profiles.</string>
+    <string name="onboarding_2_title">Fertilizer Calculator</string>
+    <string name="onboarding_2_desc">Accurate dosage calculations based on soil analysis and crop requirements.</string>
+    <string name="onboarding_3_title">Cloud Sync</string>
+    <string name="onboarding_3_desc">Keep your data updated everywhere. Seamless background synchronization.</string>
+
+    <!-- Splash Screen -->
+    <string name="logo_abonar_desc">Abonar Logo</string>
+    <string name="logo_cerai_desc">CERAI Logo</string>
+    <string name="logo_inca_desc">INCA Logo</string>
+    <string name="logo_aecid_desc">AECID Logo</string>
+    <string name="version_label">Version: %1$s</string>
+    <string name="finca_location_format">%1$s | %2$s | %3$s</string>
+    <string name="placeholder_message">%1$s Screen (Under construction)</string>
+</resources>

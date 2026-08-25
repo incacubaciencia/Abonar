@@ -1,0 +1,259 @@
+<resources>
+    <string name="app_name">Abonar</string>
+
+    <!-- Navigation -->
+    <string name="nav_inicio">Inicio</string>
+    <string name="nav_cultivos">Cultivos</string>
+    <string name="nav_fincas">Fincas</string>
+    <string name="nav_fertilizantes">Fertilizantes y Abonos</string>
+    <string name="nav_calculadora">Calculadora</string>
+    <string name="nav_guia">Guía de uso</string>
+    <string name="menu_desc">Menú</string>
+    <string name="back_desc">Regresar</string>
+    <string name="logo_desc">Logo</string>
+
+    <!-- Home Screen -->
+    <string name="home_title">Inicio</string>
+    <string name="welcome_message">Bienvenido a Abonar</string>
+    <string name="calculator_title">Calculadora</string>
+    <string name="calculator_desc">Calcula la dosis óptima de abono orgánico.</string>
+    <string name="sync_title">Sincronización de Datos</string>
+    <string name="sync_running">Sincronizando...</string>
+    <string name="sync_enqueued">Próxima sincronización pendiente</string>
+    <string name="sync_last_attempt">Último intento: %1$s</string>
+    <string name="sync_unknown">Estado desconocido</string>
+
+    <!-- Fincas Screen -->
+    <string name="fincas_title">Fincas</string>
+    <string name="search_finca">Buscar finca...</string>
+    <string name="select_finca">Seleccione una finca</string>
+    <string name="provincia_label">Provincia: %1$s</string>
+    <string name="municipio_label">Municipio: %1$s</string>
+    <string name="tipo_suelo">Tipo de Suelo</string>
+    <string name="ph_label">pH</string>
+    <string name="mo_percent">MO %</string>
+    <string name="calcio">Calcio (Ca)</string>
+    <string name="magnesio">Magnesio (Mg)</string>
+    <string name="potasio">Potasio (K)</string>
+    <string name="sodio">Sodio (Na)</string>
+    <string name="fosforo">Fósforo (P)</string>
+
+    <!-- Guía Screen -->
+    <string name="guia_title">Guía de uso</string>
+    <string name="guia_card_title">Guía de Usuario</string>
+    <string name="guia_card_desc">Aprenda a usar la aplicación paso a paso y descargue el manual.</string>
+    <string name="como_usar">Cómo usar Abonar</string>
+    <string name="export_pdf">Exportar Guía en PDF</string>
+    <string name="export_pdf_filename">Guia de Usuario aplicacion Abonar.pdf</string>
+    <string name="test_dashboard_title">Título de Prueba</string>
+    <string name="test_dashboard_desc">Esta es una descripción de prueba para la tarjeta del tablero.</string>
+    <string name="export_success">Guía exportada correctamente</string>
+    <string name="export_error">Error al exportar la guía</string>
+    <string name="section_base">Módulos Base</string>
+    <string name="section_calculator">Calculadora de Dosis (Paso a paso)</string>
+    <string name="step_1_title">1. Selección de Finca</string>
+    <string name="step_1_desc">Elija la finca o ubicación donde se aplicará el abono.</string>
+    <string name="step_2_title">2. Selección de Cultivo</string>
+    <string name="step_2_desc">Seleccione el cultivo que desea abonar para cargar sus requerimientos.</string>
+    <string name="step_3_title">3. Rendimiento Esperado</string>
+    <string name="step_3_desc">Ingrese el rendimiento objetivo. El sistema convertirá las unidades automáticamente.</string>
+    <string name="step_4_title">4. Disponibilidad de Nutrientes</string>
+    <string name="step_4_desc">Seleccione el tipo de fertilizante orgánico disponible.</string>
+    <string name="step_5_title">5. Resultados e Informe</string>
+    <string name="step_5_desc">Revise la recomendación final y los detalles del cálculo.</string>
+    <string name="image_placeholder">Imagen: %1$s</string>
+    <string name="reg_fertilizantes_title">Registro de Fertilizantes y Abonos</string>
+    <string name="reg_fertilizantes_desc">Aquí puede consultar la composición nutricional de los fertilizantes y abonos orgánicos disponibles en la aplicación.</string>
+    <string name="reg_fincas_title">Registro de Fincas y Suelos</string>
+    <string name="reg_fincas_desc">Aquí se visualizan los resultados de los análisis de laboratorio de sus suelos. Estos datos se sincronizan automáticamente desde la plataforma web una vez que se registran allí.</string>
+    <string name="reg_cultivos_title">Registro de Cultivos</string>
+    <string name="reg_cultivos_desc">En la sección de Cultivos, puede ver los requerimientos nutricionales de diferentes plantas. Estos datos son esenciales para que la calculadora funcione correctamente.</string>
+    <string name="calc_abonos_title">Calculadora de Abonos</string>
+    <string name="calc_abonos_desc">Seleccione un cultivo y un suelo, ingrese el rendimiento esperado y obtendrá la dosis recomendada de abono orgánico para su parcela.</string>
+    <string name="sync_cloud_title">Sincronización en la Nube</string>
+    <string name="sync_cloud_desc">La aplicación se sincroniza automáticamente con los servidores del INCA para asegurar que siempre tenga los parámetros técnicos más actualizados.</string>
+
+    <!-- Calculator Screen -->
+    <string name="calc_complete_data">Complete los datos para calcular la dosis</string>
+    <string name="select_cultivo">Seleccione un cultivo</string>
+    <string name="cultivo_label">Cultivo</string>
+    <string name="select_finca_suelo">Seleccione una finca/suelo</string>
+    <string name="finca_suelo_label">Finca/Suelo</string>
+    <string name="yield_label">Rendimiento Esperado</string>
+    <string name="btn_calcular">Calcular Dosis</string>
+    <string name="calc_result_title">Resultado del Cálculo</string>
+    <string name="dosis_recomendada">Dosis Recomendada: %1$.2f t/ha</string>
+    <string name="calc_result_success">Usted debe aplicar una dosis de %1$.2f kg/ha de %2$s para obtener un resultado óptimo para %3$s.</string>
+    <string name="calc_result_not_needed">No es necesario aplicar nutrientes a su suelo, está correctamente abastecido de nutrientes (N, P, K) y no es necesario abonar para obtener el rendimiento esperado que usted señaló.</string>
+    <string name="calc_result_missing_nutrient">El fertilizante seleccionado no contiene %1$s. Por favor, seleccione otro fertilizante.</string>
+    <string name="unit_kg_ha">kg/ha</string>
+    <string name="unit_t_ha">toneladas/ha</string>
+    <string name="unit_t_cordel">toneladas/cordel</string>
+    <string name="unit_t_besana">toneladas/besana</string>
+    <string name="unit_q_ha">quintales/ha</string>
+    <string name="unit_q_cordel">quintales/cordel</string>
+    <string name="unit_q_besana">quintales/besana</string>
+    <string name="unit_t_ha_short">T/ha</string>
+    <string name="soil_char_red_yellow">rojo o amarillo</string>
+    <string name="soil_char_reddish_brown">Rojizo medio pardo</string>
+    <string name="soil_char_brown_gray">Pardo o Gris</string>
+    <string name="soil_char_black_loose">Negro y Suelto</string>
+    <string name="soil_char_black_compact">Negro y compacto</string>
+    <string name="soil_char_gray_spots">Tienen manchas grices en la profundidad</string>
+    <string name="soil_char_white_spots">Tiene manchas blancas y casi no crece la hierba</string>
+    <string name="calc_reset">Realizar nuevo cálculo</string>
+    <string name="calc_fert_select_finca_error">Por favor, seleccione su finca en el primer paso para utilizar los datos de su análisis de fertilidad.</string>
+    <string name="calc_report_title">Informe de Cálculo</string>
+    <string name="calc_validation_alert">Aviso de Validación</string>
+    <string name="calc_input_data">Datos de Entrada:</string>
+    <string name="calc_intermediate_results">Cálculos Intermedios:</string>
+    <string name="calc_final_recommendation">Recomendación Final:</string>
+    <string name="mo_base">Materia Orgánica Base (MO)</string>
+    <string name="p_base">Fósforo Base (P)</string>
+    <string name="k_base">Potasio Base (K)</string>
+    <string name="yield_input">Rendimiento Introducido</string>
+    <string name="req_n">Req. Cultivo Nitrógeno (N)</string>
+    <string name="req_p">Req. Cultivo Fósforo (P)</string>
+    <string name="req_k">Req. Cultivo Potasio (K)</string>
+    <string name="fert_nutrient_prefix">Nutriente en Fertilizante (%1$s)</string>
+    <string name="soil_disp_n">Disponibilidad Suelo N</string>
+    <string name="soil_disp_p">Disponibilidad Suelo P</string>
+    <string name="soil_disp_k">Disponibilidad Suelo K</string>
+    <string name="yield_norm">Rendimiento Normalizado</string>
+    <string name="base_dose_n">Dosis Base Nitrógeno (N)</string>
+    <string name="base_dose_p">Dosis Base Fósforo (P)</string>
+    <string name="base_dose_k">Dosis Base Potasio (K)</string>
+    <string name="limiting_nutrient">Nutriente Limitante (Mayor)</string>
+    <string name="kg_ha_unit">%1$.5f kg/ha</string>
+    <string name="t_ha_unit">%1$.5f T/ha</string>
+    <string name="percent_unit">%1$.5f %%</string>
+
+    <string name="calc_step_finca">Selección de Finca</string>
+    <string name="calc_finca_optional">Finca (Opcional)</string>
+    <string name="calc_finca_auto_loaded">Se han cargado automáticamente los datos de la finca: %1$s</string>
+
+    <string name="calc_step_tipo_suelo">Tipo de Suelo</string>
+    <string name="calc_conoce_tipo_suelo">¿Conoce su tipo de suelo?</string>
+    <string name="calc_color_suelo_ques">¿De qué color es su suelo?</string>
+
+    <string name="calc_step_fertilidad">Análisis de Fertilidad</string>
+    <string name="calc_realizo_analisis_fert">¿Le ha realizado análisis de fertilidad a su suelo?</string>
+    <string name="calc_fert_info_auto">Los datos se cargarán desde la base de datos según la ubicación.</string>
+    <string name="calc_provincia">Provincia</string>
+    <string name="calc_municipio">Municipio</string>
+
+    <string name="calc_step_cultivo">Tipo de Cultivo</string>
+    <string name="calc_cultivo_ques">¿Qué tipo de cultivo va a abonar?</string>
+
+    <string name="calc_step_rendimiento">Rendimiento de la Finca</string>
+    <string name="calc_conoce_rendimiento">¿Conoce el rendimiento de su finca?</string>
+    <string name="calc_rendimiento_value">Valor de rendimiento</string>
+
+    <string name="calc_step_nutrientes">Fuente de nutrientes disponibles</string>
+    <string name="calc_nutrientes_ques">¿Con qué tipo de fuente de nutrientes cuenta?</string>
+    <string name="calc_select_nutrient_type">Seleccione su fuente de nutrientes disponibles</string>
+
+    <string name="calc_step_abono_verde">Abonos Verdes</string>
+    <string name="calc_utilizo_abono_verde_ques">¿Utilizó abonos verdes?</string>
+    <string name="calc_select_abono_verde">Seleccione el abono verde empleado</string>
+    <string name="calc_result_green_covers_all">El Abono verde %1$s empleado cubre la necesidad de nutrientes de su cultivo.</string>
+    <string name="calc_result_green_complement">Es necesario complementar el Abono verde %1$s con la adición de dosis baja de fertilizante mineral o Abono Orgánico al cultivo.</string>
+    <string name="av_base_value">Aporte Nutriente Abono Verde (%1$s)</string>
+    <string name="remaining_nutrient_need">Necesidad de Nutriente Restante</string>
+    <string name="complementary_dose_label">Dosis Complementaria a Aplicar</string>
+
+    <string name="si">Sí</string>
+    <string name="no">No</string>
+
+    <string-array name="suelo_colores">
+        <item>Rojo o amarillo</item>
+        <item>Rojizo medio pardo</item>
+        <item>Pardo o gris</item>
+        <item>Negro y suelto</item>
+        <item>Negro y compacto con grietas en la superficie</item>
+        <item>Tiene manchas grises en la profundidad</item>
+        <item>Tiene manchas blancas de superficie y casi no crece la hierba</item>
+    </string-array>
+
+    <string-array name="provincias_cuba">
+        <item>Pinar del Río</item>
+        <item>Artemisa</item>
+        <item>La Habana</item>
+        <item>Mayabeque</item>
+        <item>Matanzas</item>
+        <item>Cienfuegos</item>
+        <item>Villa Clara</item>
+        <item>Sancti Spíritus</item>
+        <item>Ciego de Ávila</item>
+        <item>Camagüey</item>
+        <item>Las Tunas</item>
+        <item>Holguín</item>
+        <item>Granma</item>
+        <item>Santiago de Cuba</item>
+        <item>Guantánamo</item>
+        <item>Isla de la Juventud</item>
+    </string-array>
+
+    <string-array name="rendimiento_unidades">
+        <item>quintales/ha</item>
+        <item>quintales/cordel</item>
+        <item>quintales/besana</item>
+        <item>toneladas/ha</item>
+        <item>toneladas/cordel</item>
+        <item>toneladas/besana</item>
+    </string-array>
+
+    <!-- Cultivos Screen -->
+    <string name="cultivos_title">Cultivos</string>
+    <string name="search_cultivo">Buscar cultivo...</string>
+    <string name="no_results">No se encontraron resultados</string>
+    <string name="select_cultivo_detail">Seleccione un cultivo</string>
+    <string name="tech_info">Información Técnica</string>
+    <string name="tipo_label">Tipo</string>
+    <string name="yield_expected">Rendimiento Esperado</string>
+    <string name="ph_min">pH Mínimo</string>
+    <string name="ph_max">pH Máximo</string>
+    <string name="nutritional_req">Requerimientos Nutricionales</string>
+    <string name="npk_label">N: %1$s | P: %2$s | K: %3$s</string>
+    <string name="nitrogeno">Nitrógeno (N)</string>
+    <string name="fosforo_full">Fósforo (P)</string>
+    <string name="potasio_full">Potasio (K)</string>
+    <string name="rend_prefix">Rend: %1$s t/ha</string>
+    <string name="ph_prefix">pH: %1$s</string>
+
+    <!-- Fertilizantes Screen -->
+    <string name="fert_title">Fertilizantes y Abonos</string>
+    <string name="search_fert">Buscar fertilizante...</string>
+    <string name="select_fert">Seleccione un fertilizante</string>
+    <string name="humedad_percent">% Humedad</string>
+    <string name="rel_cn">Relación C/N</string>
+    <string name="mat_org">Materia Orgánica</string>
+    <string name="nutritional_content">Contenido Nutricional</string>
+    <string name="fert_type_mineral">Fertilizantes minerales</string>
+    <string name="fert_type_organo_mineral">Organo-minerales</string>
+    <string name="fert_type_organic">Abonos orgánicos</string>
+    <string name="fert_type_green">Abonos Verdes</string>
+    <string name="percent_unit_display">%1$.2f%%</string>
+    <string name="kg_ha_unit_display">%1$.2f kg/ha</string>
+    <string name="npk_display_format">N: %1$s | P: %2$s | K: %3$s</string>
+
+    <!-- Onboarding Screen -->
+    <string name="btn_skip">Saltar</string>
+    <string name="btn_next">Siguiente</string>
+    <string name="btn_get_started">Empezar</string>
+    <string name="onboarding_1_title">Registro de Fincas y Cultivos</string>
+    <string name="onboarding_1_desc">Gestione sus datos agrícolas con facilidad. Realice un seguimiento de sus fincas y perfiles de cultivos específicos.</string>
+    <string name="onboarding_2_title">Calculadora de Fertilizantes</string>
+    <string name="onboarding_2_desc">Cálculos precisos de dosis basados en el análisis del suelo y los requerimientos del cultivo.</string>
+    <string name="onboarding_3_title">Sincronización en la Nube</string>
+    <string name="onboarding_3_desc">Mantenga sus datos actualizados en todas partes. Sincronización en segundo plano sin problemas.</string>
+
+    <!-- Splash Screen -->
+    <string name="logo_abonar_desc">Logo Abonar</string>
+    <string name="logo_cerai_desc">Logo CERAI</string>
+    <string name="logo_inca_desc">Logo INCA</string>
+    <string name="logo_aecid_desc">Logo AECID</string>
+    <string name="version_label">Versión: %1$s</string>
+    <string name="finca_location_format">%1$s | %2$s | %3$s</string>
+    <string name="placeholder_message">Pantalla de %1$s (En construcción)</string>
+</resources>
