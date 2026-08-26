@@ -14,6 +14,7 @@ android {
     defaultConfig {
         applicationId = "cu.edu.inca.abonosverdes"
         minSdk = 24
+        //noinspection TargetSdkUpdated
         targetSdk = 37
         versionCode = 6
         versionName = "1.0.9"
