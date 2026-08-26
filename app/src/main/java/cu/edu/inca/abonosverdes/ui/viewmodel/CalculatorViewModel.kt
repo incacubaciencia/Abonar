@@ -306,7 +306,7 @@ class CalculatorViewModel @Inject constructor(
                     } else {
                         rendimientoRaw
                     }
-
+                    //
                     // --- Paso 3: Cálculo Inicial de Dosis por Nutriente ---
                     // Coeficientes de aprovechamiento fijos: N=30, P=15, K=40.
                     val coefN = 30.0
