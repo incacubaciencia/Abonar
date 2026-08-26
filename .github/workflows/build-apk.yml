@@ -54,12 +54,10 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          tag_name: latest
-          name: "Latest Releases"
+          name: Release ${{ github.ref_name }}
           files: ${{ env.APK_PATH }}
-          body: "Historial de versiones compiladas. La versión más reciente añadida es: ${{ github.ref_name }}"
+          generate_release_notes: true
           draft: false
           prerelease: false
-          make_latest: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
