@@ -22,6 +22,7 @@
     <string name="sync_enqueued">Próxima sincronización pendiente</string>
     <string name="sync_last_attempt">Último intento: %1$s</string>
     <string name="sync_unknown">Estado desconocido</string>
+    <string name="home_tool_description">Esta herramienta ha sido desarrollada para optimizar la gestión agrícola mediante el cálculo preciso de las dosis de fertilizantes necesarias. El sistema cruza los datos de disponibilidad de nutrientes de su suelo con los requerimientos específicos de cada cultivo, asegurando un rendimiento óptimo y un uso eficiente de los recursos. Es necesario aclarar que el cálculo se realizará en función del elemento más limitante.</string>
 
     <!-- Fincas Screen -->
     <string name="fincas_title">Fincas</string>
@@ -84,22 +85,24 @@
     <string name="calc_result_title">Resultado del Cálculo</string>
     <string name="dosis_recomendada">Dosis Recomendada: %1$.2f t/ha</string>
     <string name="calc_result_success">Usted debe aplicar una dosis de %1$.2f kg/ha de %2$s para obtener un resultado óptimo para %3$s.</string>
-    <string name="calc_result_not_needed">No es necesario aplicar nutrientes a su suelo, está correctamente abastecido de nutrientes (N, P, K) y no es necesario abonar para obtener el rendimiento esperado que usted señaló.</string>
-    <string name="calc_result_missing_nutrient">El fertilizante seleccionado no contiene %1$s. Por favor, seleccione otro fertilizante.</string>
+    <string name="calc_result_not_needed">No es necesario aplicar nutrientes a su suelo, está correctamente abastecido de N, P y K y no es necesario abonar para obtener el rendimiento esperado que usted señaló.</string>
+    <string name="calc_result_missing_nutrient">El fertilizante seleccionado no contiene %1$s, que es el nutriente mas limitante en su suelo. Por favor, seleccione otro fertilizante.</string>
     <string name="unit_kg_ha">kg/ha</string>
+    <string name="unit_kg_t">kg/t</string>
     <string name="unit_t_ha">toneladas/ha</string>
     <string name="unit_t_cordel">toneladas/cordel</string>
     <string name="unit_t_besana">toneladas/besana</string>
     <string name="unit_q_ha">quintales/ha</string>
     <string name="unit_q_cordel">quintales/cordel</string>
     <string name="unit_q_besana">quintales/besana</string>
-    <string name="unit_t_ha_short">T/ha</string>
+    <string name="unit_t_ha_short">t/ha</string>
     <string name="soil_char_red_yellow">rojo o amarillo</string>
     <string name="soil_char_reddish_brown">Rojizo medio pardo</string>
     <string name="soil_char_brown_gray">Pardo o Gris</string>
     <string name="soil_char_black_loose">Negro y Suelto</string>
-    <string name="soil_char_black_compact">Negro y compacto</string>
+    <string name="soil_char_black_compact">Negro y compacto con grietas en la superficie</string>
     <string name="soil_char_gray_spots">Tienen manchas grices en la profundidad</string>
+    <string name="soil_char_red_very_dark">Rojo muy oscuro</string>
     <string name="soil_char_white_spots">Tiene manchas blancas y casi no crece la hierba</string>
     <string name="calc_reset">Realizar nuevo cálculo</string>
     <string name="calc_fert_select_finca_error">Por favor, seleccione su finca en el primer paso para utilizar los datos de su análisis de fertilidad.</string>
@@ -173,6 +176,7 @@
         <item>Negro y compacto con grietas en la superficie</item>
         <item>Tiene manchas grises en la profundidad</item>
         <item>Tiene manchas blancas de superficie y casi no crece la hierba</item>
+        <item>Rojo muy oscuro</item>
     </string-array>
 
     <string-array name="provincias_cuba">
@@ -213,7 +217,7 @@
     <string name="yield_expected">Rendimiento Esperado</string>
     <string name="ph_min">pH Mínimo</string>
     <string name="ph_max">pH Máximo</string>
-    <string name="nutritional_req">Requerimientos Nutricionales</string>
+    <string name="nutritional_req">Estracción de Nutrientes</string>
     <string name="npk_label">N: %1$s | P: %2$s | K: %3$s</string>
     <string name="nitrogeno">Nitrógeno (N)</string>
     <string name="fosforo_full">Fósforo (P)</string>

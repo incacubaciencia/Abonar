@@ -22,6 +22,7 @@
     <string name="sync_enqueued">Next synchronization pending</string>
     <string name="sync_last_attempt">Last attempt: %1$s</string>
     <string name="sync_unknown">Unknown state</string>
+    <string name="home_tool_description">This tool has been developed to optimize agricultural management through the precise calculation of necessary fertilizer doses. The system crosses nutrient availability data from your soil with the specific requirements of each crop, ensuring optimal yield and efficient use of resources. It is necessary to clarify that the calculation will be performed based on the most limiting element.</string>
 
     <!-- Fincas Screen -->
     <string name="fincas_title">Farms</string>
@@ -84,9 +85,10 @@
     <string name="calc_result_title">Calculation Result</string>
     <string name="dosis_recomendada">Recommended Dose: %1$.2f t/ha</string>
     <string name="calc_result_success">You should apply a dose of %1$.2f kg/ha of %2$s to obtain an optimal result for %3$s.</string>
-    <string name="calc_result_not_needed">It is not necessary to apply nutrients to your soil, it is correctly supplied with nutrients (N, P, K) and it is not necessary to fertilize to obtain the expected yield you indicated.</string>
-    <string name="calc_result_missing_nutrient">The selected fertilizer does not contain %1$s. Please select another fertilizer.</string>
+    <string name="calc_result_not_needed">It is not necessary to apply nutrients to your soil; it is properly supplied with N, P, and K, and fertilization is not necessary to obtain the expected yield you indicated.</string>
+    <string name="calc_result_missing_nutrient">The selected fertilizer does not contain %1$s, which is the most limiting nutrient in your soil. Please select another fertilizer.</string>
     <string name="unit_kg_ha">kg/ha</string>
+    <string name="unit_kg_t">kg/t</string>
     <string name="unit_t_ha">tons/ha</string>
     <string name="unit_t_cordel">tons/cordel</string>
     <string name="unit_t_besana">tons/besana</string>
@@ -98,8 +100,9 @@
     <string name="soil_char_reddish_brown">Medium reddish brown</string>
     <string name="soil_char_brown_gray">Brown or Gray</string>
     <string name="soil_char_black_loose">Black and Loose</string>
-    <string name="soil_char_black_compact">Black and compact</string>
+    <string name="soil_char_black_compact">Black and compact with cracks on the surface</string>
     <string name="soil_char_gray_spots">They have grey spots in the depth</string>
+    <string name="soil_char_red_very_dark">Red very dark</string>
     <string name="soil_char_white_spots">Has white spots and grass hardly grows</string>
     <string name="calc_reset">Perform new calculation</string>
     <string name="calc_fert_select_finca_error">Please select your farm in the first step to use your fertility analysis data.</string>
@@ -173,6 +176,7 @@
         <item>Black and compact with surface cracks</item>
         <item>Has gray spots at depth</item>
         <item>Has white surface spots and grass barely grows</item>
+        <item>Red very dark</item>
     </string-array>
 
     <string-array name="provincias_cuba">
@@ -213,7 +217,7 @@
     <string name="yield_expected">Expected Yield</string>
     <string name="ph_min">Min pH</string>
     <string name="ph_max">Max pH</string>
-    <string name="nutritional_req">Nutritional Requirements</string>
+    <string name="nutritional_req">Nutrient Extraction</string>
     <string name="npk_label">N: %1$s | P: %2$s | K: %3$s</string>
     <string name="nitrogeno">Nitrogen (N)</string>
     <string name="fosforo_full">Phosphorus (P)</string>

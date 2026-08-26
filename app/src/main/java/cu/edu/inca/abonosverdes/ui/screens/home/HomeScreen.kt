@@ -101,6 +101,9 @@ fun HomeScreenContent(
                 )
             }
             item {
+                InfoCard(text = stringResource(R.string.home_tool_description))
+            }
+            item {
                 DashboardCard(
                     title = stringResource(R.string.calculator_title),
                     description = stringResource(R.string.calculator_desc),
@@ -122,6 +125,38 @@ fun HomeScreenContent(
             item {
                 Spacer(modifier = Modifier.height(16.dp))
             }
+        }
+    }
+}
+
+/**
+ * Tarjeta informativa para el panel principal.
+ *
+ * @param text Mensaje a mostrar en la tarjeta.
+ */
+@Composable
+fun InfoCard(text: String) {
+    Card(
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f)
+        ),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Icon(
+                imageVector = Icons.Rounded.Info,
+                contentDescription = null,
+                tint = MaterialTheme.colorScheme.secondary
+            )
+            Text(
+                text = text,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSecondaryContainer
+            )
         }
     }
 }

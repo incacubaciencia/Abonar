@@ -40,12 +40,13 @@ class CalculatorViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val soilPhysicalCharacteristics = listOf(
-        SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_red_yellow, "Ferralítico"),
+        SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_red_yellow, "Ferralitico Rojo Lixiviado"),
         SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_reddish_brown, "Fersialítico"),
         SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_brown_gray, "Pardo"),
         SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_black_loose, "Húmico"),
         SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_black_compact, "Vértico"),
         SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_gray_spots, "Gleysol"),
+        SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_red_very_dark, "Ferrálico"),
         SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_white_spots, "Salino")
     )
 
@@ -94,7 +95,7 @@ class CalculatorViewModel @Inject constructor(
     val availableSoilCharacteristics = allTiposSuelo.map { dbTypes ->
         soilPhysicalCharacteristics.filter { char ->
             dbTypes.any { it.contains(char.dbType, ignoreCase = true) }
-        }.sortedBy { it.dbType } 
+        }.sortedBy { it.dbType }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     /** Flujo de fuentes de nutrientes (excluyendo Abonos Verdes) ordenados por nombre. */
@@ -410,7 +411,7 @@ class CalculatorViewModel @Inject constructor(
                         } else {
                             (100.0 * dosisMax) / nutFertVal
                         }
-                        dosisAMostrarKg = dosisAplicarTons * 1000.0
+                        dosisAMostrarKg = dosisAplicarTons
                         finalMessageArgs = listOf(dosisAMostrarKg, fertilizante.nomb, cultivo.nombre)
                     }
 

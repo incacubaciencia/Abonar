@@ -401,9 +401,9 @@ fun CultivoDetail(cultivo: Cultivos, onBack: () -> Unit) {
                 Column(modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(text = stringResource(R.string.nutritional_req), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
                     HorizontalDivider()
-                    DetailItem(stringResource(R.string.nitrogeno), "${cultivo.n} ${stringResource(R.string.unit_kg_ha)}")
-                    DetailItem(stringResource(R.string.fosforo_full), "${cultivo.p} ${stringResource(R.string.unit_kg_ha)}")
-                    DetailItem(stringResource(R.string.potasio_full), "${cultivo.k} ${stringResource(R.string.unit_kg_ha)}")
+                    DetailItem(stringResource(R.string.nitrogeno), "${cultivo.n} ${stringResource(R.string.unit_kg_t)}")
+                    DetailItem(stringResource(R.string.fosforo_full), "${cultivo.p} ${stringResource(R.string.unit_kg_t)}")
+                    DetailItem(stringResource(R.string.potasio_full), "${cultivo.k} ${stringResource(R.string.unit_kg_t)}")
                 }
             }
         }

@@ -1,4 +1,4 @@
-name: Build Android APK
+name: Build and Sign Android APK
 
 on:
   push:
@@ -24,14 +24,23 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew assembleDebug
+      - name: Build Release APK
+        run: ./gradlew assembleRelease
 
-      - name: Rename and Prepare APK
+      - name: Sign APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.KEYSTORE_BASE64 }}
+          alias: ${{ secrets.KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Rename Signed APK
         run: |
-          # Busca cualquier APK generado en la carpeta de debug y lo renombra
-          find app/build/outputs/apk/debug/ -name "*.apk" -exec mv {} app/build/outputs/apk/debug/abonar-${{ github.ref_name }}.apk \;
-          echo "APK_PATH=$(find app/build/outputs/apk/debug/ -name "abonar-*.apk")" >> $GITHUB_ENV
+          mv ${{ steps.sign_app.outputs.signedReleaseFile }} app/build/outputs/apk/release/abonar-${{ github.ref_name }}.apk
+          echo "APK_PATH=app/build/outputs/apk/release/abonar-${{ github.ref_name }}.apk" >> $GITHUB_ENV
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
