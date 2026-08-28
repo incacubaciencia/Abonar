@@ -43,6 +43,15 @@ android {
     }
 }
 
+hilt {
+    enableAggregatingTask = true
+}
+
+// Disable Kapt if it's being applied implicitly, as we use KSP for all processors
+tasks.matching { it.name.contains("kapt", ignoreCase = true) }.configureEach {
+    enabled = false
+}
+
 sentry {
     includeProguardMapping.set(false)
     autoUploadProguardMapping.set(false)
@@ -88,7 +97,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.logging.interceptor)
     implementation(libs.material)
-    implementation(libs.moshi.kotlin)
+    implementation(libs.moshi)
     implementation(libs.okhttp)
     implementation(libs.retrofit)
     testImplementation(libs.androidx.core)
@@ -102,13 +111,13 @@ dependencies {
     androidTestImplementation(libs.androidx.runner)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
-    "ksp"(libs.androidx.room.compiler)
-    "ksp"(libs.moshi.kotlin.codegen)
+    ksp(libs.androidx.room.compiler)
+    ksp(libs.moshi.kotlin.codegen)
     implementation(libs.hilt.android)
-    "ksp"(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.androidx.hilt.work)
-    "ksp"(libs.androidx.hilt.compiler)
+    ksp(libs.androidx.hilt.compiler)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.sentry.android)
     implementation(libs.sentry.compose)

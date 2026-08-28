@@ -1,7 +1,6 @@
 package cu.edu.inca.abonosverdes.di
 
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import cu.edu.inca.abonosverdes.data.remote.ApiService
 import cu.edu.inca.abonosverdes.data.remote.GithubApiService
 import dagger.Module
@@ -22,9 +21,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideMoshi(): Moshi {
-        return Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
+        return Moshi.Builder().build()
     }
 
     @Provides

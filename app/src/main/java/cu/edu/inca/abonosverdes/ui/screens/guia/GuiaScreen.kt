@@ -45,6 +45,8 @@ fun GuiaScreen(
 ) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+    val successMessage = stringResource(R.string.export_success)
+    val errorMessage = stringResource(R.string.export_error)
 
     // Launcher para guardar el archivo PDF usando el Storage Access Framework
     val exportLauncher = rememberLauncherForActivityResult(
@@ -54,9 +56,9 @@ fun GuiaScreen(
             scope.launch {
                 val success = exportPdf(context, it)
                 if (success) {
-                    Toast.makeText(context, context.getString(R.string.export_success), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, successMessage, Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, context.getString(R.string.export_error), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                 }
             }
         }

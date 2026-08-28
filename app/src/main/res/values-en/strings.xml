@@ -18,7 +18,7 @@
     <string name="calculator_title">Calculator</string>
     <string name="calculator_desc">Calculate the optimal organic fertilizer dose.</string>
     <string name="sync_title">Data Synchronization</string>
-    <string name="sync_running">Synchronizing...</string>
+    <string name="sync_running">Synchronizing…</string>
     <string name="sync_enqueued">Next synchronization pending</string>
     <string name="sync_last_attempt">Last attempt: %1$s</string>
     <string name="sync_unknown">Unknown state</string>
@@ -26,7 +26,7 @@
 
     <!-- Fincas Screen -->
     <string name="fincas_title">Farms</string>
-    <string name="search_finca">Search farm...</string>
+    <string name="search_finca">Search farm…</string>
     <string name="select_finca">Select a farm</string>
     <string name="provincia_label">Province: %1$s</string>
     <string name="municipio_label">Municipality: %1$s</string>
@@ -209,7 +209,7 @@
 
     <!-- Cultivos Screen -->
     <string name="cultivos_title">Crops</string>
-    <string name="search_cultivo">Search crop...</string>
+    <string name="search_cultivo">Search crop…</string>
     <string name="no_results">No results found</string>
     <string name="select_cultivo_detail">Select a crop</string>
     <string name="tech_info">Technical Information</string>
@@ -227,9 +227,9 @@
 
     <!-- Fertilizantes Screen -->
     <string name="fert_title">Fertilizers and Manures</string>
-    <string name="search_fert">Search fertilizer...</string>
+    <string name="search_fert">Search fertilizer…</string>
     <string name="select_fert">Select a fertilizer</string>
-    <string name="humedad_percent">% Humidity</string>
+    <string name="humedad_percent">%% Humidity</string>
     <string name="rel_cn">C/N Ratio</string>
     <string name="mat_org">Organic Matter</string>
     <string name="nutritional_content">Nutritional Content</string>
@@ -260,4 +260,6 @@
     <string name="version_label">Version: %1$s</string>
     <string name="finca_location_format">%1$s | %2$s | %3$s</string>
     <string name="placeholder_message">%1$s Screen (Under construction)</string>
+    <string name="update_download_title">Abonos Verdes Update</string>
+    <string name="update_download_description">Downloading version %1$s</string>
 </resources>

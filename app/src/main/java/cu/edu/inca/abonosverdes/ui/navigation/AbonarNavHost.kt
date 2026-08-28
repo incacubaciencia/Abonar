@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -82,7 +81,7 @@ fun AbonarNavHost(
 
     val currentDestination = backStack.lastOrNull()
 
-    val myEntryProvider = entryProvider<NavKey> {
+    val myEntryProvider = entryProvider {
         entry(Destination.Splash as NavKey) {
             SplashScreen(
                 onTimeout = {
@@ -91,10 +90,12 @@ fun AbonarNavHost(
             )
         }
         entry(Destination.Onboarding as NavKey) {
-            OnboardingScreen(onFinished = {
-                onOnboardingFinished()
-                backStack = listOf(Destination.Home)
-            })
+            OnboardingScreen(
+                onFinished = {
+                    onOnboardingFinished()
+                    backStack = listOf(Destination.Home)
+                }
+            )
         }
         entry(Destination.Home as NavKey) {
             HomeScreen(
@@ -138,15 +139,12 @@ fun AbonarNavHost(
             entryProvider = myEntryProvider
         )
     } else {
-        val configuration = LocalConfiguration.current
-        val drawerWidth = configuration.screenWidthDp.dp * 0.75f
-
         ModalNavigationDrawer(
             drawerState = drawerState,
             drawerContent = {
                 ModalDrawerSheet(
                     modifier = Modifier
-                        .width(drawerWidth)
+                        .fillMaxWidth(0.75f)
                         .fillMaxHeight()
                         .verticalScroll(rememberScrollState())
                 ) {

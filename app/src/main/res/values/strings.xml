@@ -18,7 +18,7 @@
     <string name="calculator_title">Calculadora</string>
     <string name="calculator_desc">Calcula la dosis óptima de abono orgánico.</string>
     <string name="sync_title">Sincronización de Datos</string>
-    <string name="sync_running">Sincronizando...</string>
+    <string name="sync_running">Sincronizando…</string>
     <string name="sync_enqueued">Próxima sincronización pendiente</string>
     <string name="sync_last_attempt">Último intento: %1$s</string>
     <string name="sync_unknown">Estado desconocido</string>
@@ -26,7 +26,7 @@
 
     <!-- Fincas Screen -->
     <string name="fincas_title">Fincas</string>
-    <string name="search_finca">Buscar finca...</string>
+    <string name="search_finca">Buscar finca…</string>
     <string name="select_finca">Seleccione una finca</string>
     <string name="provincia_label">Provincia: %1$s</string>
     <string name="municipio_label">Municipio: %1$s</string>
@@ -209,7 +209,7 @@
 
     <!-- Cultivos Screen -->
     <string name="cultivos_title">Cultivos</string>
-    <string name="search_cultivo">Buscar cultivo...</string>
+    <string name="search_cultivo">Buscar cultivo…</string>
     <string name="no_results">No se encontraron resultados</string>
     <string name="select_cultivo_detail">Seleccione un cultivo</string>
     <string name="tech_info">Información Técnica</string>
@@ -227,9 +227,9 @@
 
     <!-- Fertilizantes Screen -->
     <string name="fert_title">Fertilizantes y Abonos</string>
-    <string name="search_fert">Buscar fertilizante...</string>
+    <string name="search_fert">Buscar fertilizante…</string>
     <string name="select_fert">Seleccione un fertilizante</string>
-    <string name="humedad_percent">% Humedad</string>
+    <string name="humedad_percent">%% Humedad</string>
     <string name="rel_cn">Relación C/N</string>
     <string name="mat_org">Materia Orgánica</string>
     <string name="nutritional_content">Contenido Nutricional</string>
@@ -260,4 +260,6 @@
     <string name="version_label">Versión: %1$s</string>
     <string name="finca_location_format">%1$s | %2$s | %3$s</string>
     <string name="placeholder_message">Pantalla de %1$s (En construcción)</string>
+    <string name="update_download_title">Actualización de Abonos Verdes</string>
+    <string name="update_download_description">Descargando versión %1$s</string>
 </resources>

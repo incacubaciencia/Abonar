@@ -2,19 +2,21 @@ package cu.edu.inca.abonosverdes.data.repository
 
 import android.app.DownloadManager
 import android.content.Context
-import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import androidx.core.net.toUri
 import cu.edu.inca.abonosverdes.BuildConfig
+import cu.edu.inca.abonosverdes.R
 import cu.edu.inca.abonosverdes.data.remote.GithubApiService
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class UpdateRepository @Inject constructor(
     private val githubApiService: GithubApiService,
-    @get:ApplicationContext private val context: Context,
+    @ApplicationContext private val context: Context,
 ) {
 
     data class UpdateStatus(
@@ -41,7 +43,9 @@ class UpdateRepository @Inject constructor(
             } else {
                 UpdateStatus(hasUpdate = false, latestVersion = remoteVersion)
             }
-        } catch (_: Exception) {
+        } catch (e: Exception) {
+            if (e is CancellationException) throw e
+            Log.e("UpdateRepository", "Error checking for update", e)
             UpdateStatus(hasUpdate = false, latestVersion = "")
         }
     }
@@ -68,8 +72,8 @@ class UpdateRepository @Inject constructor(
 
     fun downloadUpdate(url: String, fileName: String): Long {
         val request = DownloadManager.Request(url.toUri())
-            .setTitle("Actualización de Abonos Verdes")
-            .setDescription("Descargando versión $fileName")
+            .setTitle(context.getString(R.string.update_download_title))
+            .setDescription(context.getString(R.string.update_download_description, fileName))
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED)
             .setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, fileName)
             .setAllowedOverMetered(true)

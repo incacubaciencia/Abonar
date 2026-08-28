@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
+import androidx.core.content.edit
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -43,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     showOnboarding = showOnboarding,
                     onOnboardingFinished = {
                         showOnboarding = false
-                        sharedPref.edit().putBoolean("show_onboarding", false).apply()
+                        sharedPref.edit { putBoolean("show_onboarding", false) }
                     }
                 )
             }

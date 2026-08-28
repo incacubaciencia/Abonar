@@ -47,8 +47,10 @@ object SentryManager {
      * Intercepta excepciones no capturadas globalmente para mostrar el diálogo de consentimiento.
      */
     private fun setupCrashHandler(context: Context) {
-        Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
+        val existingHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
             CrashActivity.start(context, throwable)
+            existingHandler?.uncaughtException(thread, throwable)
         }
     }
 

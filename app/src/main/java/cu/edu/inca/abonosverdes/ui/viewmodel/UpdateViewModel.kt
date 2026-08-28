@@ -24,7 +24,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UpdateViewModel @Inject constructor(
     private val repository: UpdateRepository,
-    @get:ApplicationContext private val context: Context,
+    @ApplicationContext private val context: Context,
 ) : ViewModel() {
 
     sealed class UpdateUiState {
@@ -110,7 +110,7 @@ class UpdateViewModel @Inject constructor(
         val contentUri = FileProvider.getUriForFile(
             context,
             "${context.packageName}.fileprovider",
-            file
+            file,
         )
 
         val installIntent = Intent(Intent.ACTION_VIEW).apply {

@@ -1,0 +1,24 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.6.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+Calculating task graph as no cached configuration is available for tasks: app:assembleDebug
+
+FAILURE: Build failed with an exception.
+
+* Where:
+Build file '/home/dfedez/AndroidStudioProjects/AbonosVerdes/app/build.gradle.kts' line: 1
+
+* What went wrong:
+An exception occurred applying plugin request [id: 'com.android.application', version: '9.3.2']
+> Failed to apply plugin 'com.android.internal.application'.
+   > Failed to create service 'com.android.build.gradle.internal.services.AndroidLocationsBuildService_c6034734-05d6-4654-9c0d-b086984cbf78'.
+      > Could not create an instance of type com.android.build.gradle.internal.services.AndroidLocationsBuildService.
+         > Could not create provider for value source AndroidLocationsBuildService.AndroidDirectoryCreator.
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 12s
+Configuration cache entry stored.
