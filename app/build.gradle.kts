@@ -57,18 +57,15 @@ hilt {
 
 // FIX DEFINITIVO: Desactiva Kapt por completo para evitar que Moshi dispare la advertencia de deprecación.
 // Esto es necesario porque algunos plugins (como Hilt) pueden habilitar Kapt de forma implícita.
-// Como todo el proyecto ya usa KSP, Kapt es redundante.
 tasks.matching { it.name.contains("kapt", ignoreCase = true) }.configureEach {
     enabled = false
 }
 
-hilt {
-    enableAggregatingTask = true
-}
-
-// Disable Kapt if it's being applied implicitly, as we use KSP for all processors
-tasks.matching { it.name.contains("kapt", ignoreCase = true) }.configureEach {
-    enabled = false
+// Evita que Moshi se incluya en cualquier configuración de Kapt residual que Hilt pueda crear
+configurations.all {
+    if (name.contains("kapt", ignoreCase = true)) {
+        exclude(group = "com.squareup.moshi", module = "moshi-kotlin-codegen")
+    }
 }
 
 sentry {
@@ -77,8 +74,6 @@ sentry {
     uploadNativeSymbols.set(false)
     includeNativeSources.set(false)
 }
-
-// No longer needed as we updated Hilt and aligned KSP
 
 dependencies {
     implementation(platform(libs.androidx.compose.bom))

@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.work.WorkInfo
@@ -37,7 +38,7 @@ import java.util.*
 fun HomeScreen(
     onNavigateToCalculator: () -> Unit,
     onNavigateToGuia: () -> Unit,
-    onOpenDrawer: () -> Unit
+    onOpenDrawer: () -> Unit,
 ) {
     val context = LocalContext.current
     
@@ -58,7 +59,7 @@ fun HomeScreen(
         onNavigateToCalculator = onNavigateToCalculator,
         onNavigateToGuia = onNavigateToGuia,
         onOpenDrawer = onOpenDrawer,
-        syncStatus = syncStatus
+        syncStatus = syncStatus,
     )
 }
 
@@ -75,29 +76,29 @@ fun HomeScreenContent(
     syncStatus: WorkInfo?,
     onNavigateToCalculator: () -> Unit,
     onNavigateToGuia: () -> Unit,
-    onOpenDrawer: () -> Unit
+    onOpenDrawer: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             AbonarAppBar(
                 title = stringResource(R.string.home_title),
-                onOpenDrawer = onOpenDrawer
+                onOpenDrawer = onOpenDrawer,
             )
-        }
+        },
     ) { paddingValues ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .padding(horizontal = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             item {
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = stringResource(R.string.welcome_message),
                     style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.primary,
                 )
             }
             item {
@@ -108,7 +109,7 @@ fun HomeScreenContent(
                     title = stringResource(R.string.calculator_title),
                     description = stringResource(R.string.calculator_desc),
                     icon = Icons.Rounded.Calculate,
-                    onClick = onNavigateToCalculator
+                    onClick = onNavigateToCalculator,
                 )
             }
             item {
@@ -116,7 +117,7 @@ fun HomeScreenContent(
                     title = stringResource(R.string.guia_card_title),
                     description = stringResource(R.string.guia_card_desc),
                     icon = Icons.AutoMirrored.Rounded.Help,
-                    onClick = onNavigateToGuia
+                    onClick = onNavigateToGuia,
                 )
             }
             item {
@@ -138,24 +139,24 @@ fun HomeScreenContent(
 fun InfoCard(text: String) {
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f)
+            containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f),
         ),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Icon(
                 imageVector = Icons.Rounded.Info,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.secondary
+                tint = MaterialTheme.colorScheme.secondary,
             )
             Text(
                 text = text,
                 style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
             )
         }
     }
@@ -174,36 +175,36 @@ fun DashboardCard(
     title: String,
     description: String,
     icon: ImageVector,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Card(
         onClick = onClick,
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
-        )
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+        ),
     ) {
         Row(
             modifier = Modifier.padding(24.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
                 modifier = Modifier.size(48.dp),
-                tint = MaterialTheme.colorScheme.onPrimaryContainer
+                tint = MaterialTheme.colorScheme.onPrimaryContainer,
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(
                     text = title,
                     style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                 )
                 Text(
                     text = description,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                    color = MaterialTheme.colorScheme.onPrimaryContainer,
                 )
             }
         }
@@ -222,7 +223,9 @@ fun SyncStatusCard(workInfo: WorkInfo?) {
         WorkInfo.State.RUNNING -> stringResource(R.string.sync_running)
         WorkInfo.State.ENQUEUED -> stringResource(R.string.sync_enqueued)
         WorkInfo.State.SUCCEEDED, WorkInfo.State.FAILED -> {
-            val date = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
+            val configuration = LocalConfiguration.current
+            val locale = configuration.locales[0]
+            val date = SimpleDateFormat("HH:mm", locale).format(Date())
             stringResource(R.string.sync_last_attempt, date)
         }
         else -> stringResource(R.string.sync_unknown)
@@ -232,19 +235,19 @@ fun SyncStatusCard(workInfo: WorkInfo?) {
     val color = if (workInfo?.state == WorkInfo.State.RUNNING) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary
 
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
                 text = stringResource(R.string.sync_title),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
             )
             Spacer(modifier = Modifier.height(8.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     icon,
                     contentDescription = null,
-                    tint = color
+                    tint = color,
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(statusText, style = MaterialTheme.typography.bodyMedium)
@@ -260,7 +263,7 @@ fun HomeScreenPreview() {
         onNavigateToCalculator = {},
         onNavigateToGuia = {},
         onOpenDrawer = {},
-        syncStatus = null
+        syncStatus = null,
     )
 }
 
@@ -271,6 +274,5 @@ fun DashboardCardPreview() {
         title = stringResource(R.string.test_dashboard_title),
         description = stringResource(R.string.test_dashboard_desc),
         icon = Icons.Rounded.Calculate,
-        onClick = {}
-    )
+    ) {}
 }

@@ -34,7 +34,7 @@ data class SoilPhysicalCharacteristic(
 class CalculatorViewModel @Inject constructor(
     cultivosDao: CultivosDao,
     private val suelosDao: SuelosDao,
-    private val fertAbOrgDao: FertAbOrgDao,
+    fertAbOrgDao: FertAbOrgDao,
     private val abonoOrganicoDao: AbonoOrganicoDao,
 ) : ViewModel() {
 
@@ -197,7 +197,7 @@ class CalculatorViewModel @Inject constructor(
      * Valida que sea un número válido.
      */
     fun onRendimientoValueChanged(value: String) {
-        if (value.all { (it.isDigit() || it == '.') }) {
+        if (value.all { (it.isDigit()) || (it == '.') }) {
             _uiState.update { it.copy(rendimientoValue = value, calculationResult = null) }
         }
     }
@@ -339,16 +339,16 @@ class CalculatorViewModel @Inject constructor(
                         cropRequirements = Triple(cultivo.n, cultivo.p, cultivo.k),
                         dosisBaseNPK = Triple(dosisN, dosisP, dosisK),
                         nutrientFertVal = 0.0,
-                        nutrientFertName = ""
+                        nutrientFertName = "",
                     )
 
                     // --- Paso 4: Evaluación de Resultados y Casos Especiales ---
                     // Caso: El suelo está correctamente abastecido.
-                    if (dosisN < 0 && dosisP < 0 && dosisK < 0) {
+                    if ((dosisN < 0) && (dosisP < 0) && (dosisK < 0)) {
                         return@withContext CalculationResult(
                             messageResId = cu.edu.inca.abonosverdes.R.string.calc_result_not_needed,
                             isSuccess = true,
-                            partialResults = partials
+                            partialResults = partials,
                         )
                     }
 
@@ -380,8 +380,8 @@ class CalculatorViewModel @Inject constructor(
                             nutrienteFaltante = nutrienteBase,
                             partialResults = partials.copy(
                                 nutrientFertVal = nutFertVal,
-                                nutrientFertName = nutrienteBase
-                            )
+                                nutrientFertName = nutrienteBase,
+                            ),
                         )
                     }
 
@@ -389,7 +389,7 @@ class CalculatorViewModel @Inject constructor(
                     val finalMessageArgs: List<Any>
                     var dosisAMostrarKg = 0.0
 
-                    if (state.utilizoAbonoVerde == true && state.selectedAbonoVerde != null) {
+                    if ((state.utilizoAbonoVerde == true) && (state.selectedAbonoVerde != null)) {
                         val greenManureNutVal = when (nutrienteBase) {
                             "N" -> state.selectedAbonoVerde.n
                             "P" -> state.selectedAbonoVerde.p
@@ -444,8 +444,8 @@ class CalculatorViewModel @Inject constructor(
                                 "P" -> state.selectedAbonoVerde?.p
                                 "K" -> state.selectedAbonoVerde?.k
                                 else -> 0.0
-                            } ?: 0.0)) else null
-                        )
+                            } ?: 0.0)) else null,
+                        ),
                     )
                 }
                 _uiState.update { it.copy(calculationResult = result) }
@@ -470,15 +470,16 @@ class CalculatorViewModel @Inject constructor(
             null -> false
         }
 
-        val pasoNutrienteComplete = fincaSeleccionada || state.selectedNutrienteDisponible != null
+        val pasoNutrienteComplete = fincaSeleccionada || (state.selectedNutrienteDisponible != null)
         
-        val pasoAbonoVerdeComplete = state.utilizoAbonoVerde == false || 
-                                    (state.utilizoAbonoVerde == true && state.selectedAbonoVerde != null)
+        val pasoAbonoVerdeComplete = (state.utilizoAbonoVerde == false) || 
+                                    ((state.utilizoAbonoVerde == true) && (state.selectedAbonoVerde != null))
 
-        val pasoSueloComplete = fincaSeleccionada || (state.conoceTipoSuelo == true && state.selectedTipoSuelo != null) || 
-                           (state.conoceTipoSuelo == false && state.selectedSoilCharResId != null)
+        val pasoSueloComplete = fincaSeleccionada || 
+                                ((state.conoceTipoSuelo == true) && (state.selectedTipoSuelo != null)) || 
+                                ((state.conoceTipoSuelo == false) && (state.selectedSoilCharResId != null))
         
-        val pasoFertilidadComplete = fincaSeleccionada || state.realizoAnalisisFertilidad != null
+        val pasoFertilidadComplete = fincaSeleccionada || (state.realizoAnalisisFertilidad != null)
 
         pasoCultivoComplete && pasoRendimientoComplete && pasoNutrienteComplete && pasoAbonoVerdeComplete && pasoSueloComplete && pasoFertilidadComplete
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), initialValue = false)
@@ -498,8 +499,8 @@ class CalculatorViewModel @Inject constructor(
         }
         
         // Paso 3: Análisis de Fertilidad (Si no hay finca, tras suelo)
-        val step3Visible = !fincaSeleccionada && step2Complete
-        val step3Complete = fincaSeleccionada || state.realizoAnalisisFertilidad != null
+        val step3Visible = (!fincaSeleccionada) && step2Complete
+        val step3Complete = fincaSeleccionada || (state.realizoAnalisisFertilidad != null)
         
         // Paso 4: Tipo de Cultivo (Tras Fertilidad o Finca)
         val step4Visible = fincaSeleccionada || step3Complete
@@ -526,7 +527,7 @@ class CalculatorViewModel @Inject constructor(
             step4 = step4Visible,
             step5 = step5Visible,
             step6 = step6Visible,
-            step7 = step7Visible
+            step7 = step7Visible,
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), VisibleSteps())
 }
