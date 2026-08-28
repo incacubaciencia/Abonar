@@ -24,7 +24,7 @@ object DatabaseModule {
             AppDatabase.DATABASE_NAME
         )
         .enableMultiInstanceInvalidation()
-        .fallbackToDestructiveMigration()
+        .fallbackToDestructiveMigration(dropAllTables = true)
         .build()
     }
 

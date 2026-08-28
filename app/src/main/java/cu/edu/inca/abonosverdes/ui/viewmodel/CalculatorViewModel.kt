@@ -9,7 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.util.Locale
 import javax.inject.Inject
 
 /**
@@ -28,15 +27,15 @@ enum class YieldUnit(val resId: Int) {
 
 data class SoilPhysicalCharacteristic(
     val resId: Int,
-    val dbType: String
+    val dbType: String,
 )
 
 @HiltViewModel
 class CalculatorViewModel @Inject constructor(
-    private val cultivosDao: CultivosDao,
+    cultivosDao: CultivosDao,
     private val suelosDao: SuelosDao,
     private val fertAbOrgDao: FertAbOrgDao,
-    private val abonoOrganicoDao: AbonoOrganicoDao
+    private val abonoOrganicoDao: AbonoOrganicoDao,
 ) : ViewModel() {
 
     private val soilPhysicalCharacteristics = listOf(
@@ -47,7 +46,7 @@ class CalculatorViewModel @Inject constructor(
         SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_black_compact, "Vértico"),
         SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_gray_spots, "Gleysol"),
         SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_red_very_dark, "Ferrálico"),
-        SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_white_spots, "Salino")
+        SoilPhysicalCharacteristic(cu.edu.inca.abonosverdes.R.string.soil_char_white_spots, "Salino"),
     )
 
     // --- Form State ---
@@ -93,21 +92,21 @@ class CalculatorViewModel @Inject constructor(
 
     /** Flujo de características físicas del suelo filtradas por disponibilidad en la base de datos ordenadas alfabéticamente. */
     val availableSoilCharacteristics = allTiposSuelo.map { dbTypes ->
-        soilPhysicalCharacteristics.filter { char ->
+        soilPhysicalCharacteristics.asSequence().filter { char ->
             dbTypes.any { it.contains(char.dbType, ignoreCase = true) }
-        }.sortedBy { it.dbType }
+        }.sortedBy { it.dbType }.toList()
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     /** Flujo de fuentes de nutrientes (excluyendo Abonos Verdes) ordenados por nombre. */
     val allFertAbOrg = fertAbOrgDao.getAll().map { list ->
-        list.filter { !it.tipo.contains("Abonos Verdes", ignoreCase = true) }
-            .sortedBy { it.nomb }
+        list.asSequence().filter { !it.tipo.contains("Abonos Verdes", ignoreCase = true) }
+            .sortedBy { it.nomb }.toList()
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     /** Flujo de Abonos Verdes únicamente ordenados por nombre. */
     val allAbonosVerdes = fertAbOrgDao.getAll().map { list ->
-        list.filter { it.tipo.contains("Abonos Verdes", ignoreCase = true) }
-            .sortedBy { it.nomb }
+        list.asSequence().filter { it.tipo.contains("Abonos Verdes", ignoreCase = true) }
+            .sortedBy { it.nomb }.toList()
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     // --- Form Actions ---
@@ -128,7 +127,7 @@ class CalculatorViewModel @Inject constructor(
                 autoLoadedAbono = abono,
                 // Reset conditional steps if finca is selected
                 conoceTipoSuelo = if (finca != null) null else it.conoceTipoSuelo,
-                calculationResult = null
+                calculationResult = null,
             ) }
         }
     }
@@ -198,7 +197,7 @@ class CalculatorViewModel @Inject constructor(
      * Valida que sea un número válido.
      */
     fun onRendimientoValueChanged(value: String) {
-        if (value.all { it.isDigit() || it == '.' }) {
+        if (value.all { (it.isDigit() || it == '.') }) {
             _uiState.update { it.copy(rendimientoValue = value, calculationResult = null) }
         }
     }
@@ -260,8 +259,6 @@ class CalculatorViewModel @Inject constructor(
                     // Extrae MO, P y K de la base de datos (por finca o promedio de municipio/provincia o tipo de suelo).
                     val suelosList = if (state.selectedFinca != null) {
                         suelosDao.getAllByFinca(state.selectedFinca)
-                    } else if (state.selectedMunicipio != null) {
-                        suelosDao.getAllByMunicipio(state.selectedMunicipio)
                     } else {
                         val searchTipo = if (state.conoceTipoSuelo == true) {
                             state.selectedTipoSuelo
@@ -270,21 +267,32 @@ class CalculatorViewModel @Inject constructor(
                                 soilPhysicalCharacteristics.find { it.resId == resId }?.dbType
                             }
                         }
+
                         if (searchTipo != null) {
-                            suelosDao.getAllByTipoSuelo(searchTipo)
+                            when {
+                                state.selectedMunicipio != null -> {
+                                    suelosDao.getAllByTipoSueloAndMunicipio(searchTipo, state.selectedMunicipio)
+                                }
+                                state.selectedProvincia != null -> {
+                                    suelosDao.getAllByTipoSueloAndProvincia(searchTipo, state.selectedProvincia)
+                                }
+                                else -> {
+                                    suelosDao.getAllByTipoSuelo(searchTipo)
+                                }
+                            }
                         } else {
                             emptyList()
                         }
                     }
 
-                    val moBD = suelosList.mapNotNull { it.moPercent }.average().takeIf { !it.isNaN() } ?: 0.0
-                    val pBD = suelosList.mapNotNull { it.p }.average().takeIf { !it.isNaN() } ?: 0.0
-                    val kBD_suelo = suelosList.mapNotNull { it.k }.average().takeIf { !it.isNaN() } ?: 0.0
+                    val moBD = suelosList.asSequence().mapNotNull { it.moPercent }.average().takeIf { !it.isNaN() } ?: 0.0
+                    val pBD = suelosList.asSequence().mapNotNull { it.p }.average().takeIf { !it.isNaN() } ?: 0.0
+                    val kbdSuelo = suelosList.asSequence().mapNotNull { it.k }.average().takeIf { !it.isNaN() } ?: 0.0
 
                     // Conversión a disponibilidad real (kg/ha) usando fórmulas agronómicas actualizadas.
                     val dispN = moBD / 30.0
                     val dispP = pBD * 2.0
-                    val dispK = kBD_suelo * 782.0
+                    val dispK = kbdSuelo * 782.0
 
                     // --- Paso 2: Determinar y Normalizar el Rendimiento Esperado (a T/ha) ---
                     val rendimientoRaw = if (state.conoceRendimiento == true) {
@@ -323,7 +331,7 @@ class CalculatorViewModel @Inject constructor(
 
                     // Almacenar resultados parciales para visualización detallada.
                     val partials = PartialResults(
-                        baseSoilValues = Triple(moBD, pBD, kBD_suelo),
+                        baseSoilValues = Triple(moBD, pBD, kbdSuelo),
                         dispNPK = Triple(dispN, dispP, dispK),
                         yieldRaw = rendimientoRaw,
                         yieldUnitResId = state.selectedYieldUnit.resId,
@@ -378,7 +386,7 @@ class CalculatorViewModel @Inject constructor(
                     }
 
                     var finalMessageResId = cu.edu.inca.abonosverdes.R.string.calc_result_success
-                    var finalMessageArgs = listOf<Any>()
+                    val finalMessageArgs: List<Any>
                     var dosisAMostrarKg = 0.0
 
                     if (state.utilizoAbonoVerde == true && state.selectedAbonoVerde != null) {
@@ -441,7 +449,7 @@ class CalculatorViewModel @Inject constructor(
                     )
                 }
                 _uiState.update { it.copy(calculationResult = result) }
-            } catch (e: Exception) {
+            } catch (_: Exception) {
                 // Manejo de error silencioso o reporte a Firebase/Sentry en producción
             }
         }
@@ -456,25 +464,24 @@ class CalculatorViewModel @Inject constructor(
         
         val pasoCultivoComplete = state.selectedCultivo != null
         
-        val pasoRendimientoComplete = state.conoceRendimiento != null && (
-            state.conoceRendimiento == false || 
-            (state.conoceRendimiento == true && state.rendimientoValue.isNotEmpty())
-        )
+        val pasoRendimientoComplete = when (state.conoceRendimiento) {
+            false -> true
+            true -> state.rendimientoValue.isNotEmpty()
+            null -> false
+        }
 
         val pasoNutrienteComplete = fincaSeleccionada || state.selectedNutrienteDisponible != null
         
-        val pasoAbonoVerdeComplete = state.utilizoAbonoVerde != null && (
-            state.utilizoAbonoVerde == false || (state.utilizoAbonoVerde == true && state.selectedAbonoVerde != null)
-        )
+        val pasoAbonoVerdeComplete = state.utilizoAbonoVerde == false || 
+                                    (state.utilizoAbonoVerde == true && state.selectedAbonoVerde != null)
 
         val pasoSueloComplete = fincaSeleccionada || (state.conoceTipoSuelo == true && state.selectedTipoSuelo != null) || 
                            (state.conoceTipoSuelo == false && state.selectedSoilCharResId != null)
         
-        val pasoFertilidadComplete = fincaSeleccionada || 
-                                    (state.realizoAnalisisFertilidad == false && state.selectedProvincia != null && state.selectedMunicipio != null)
+        val pasoFertilidadComplete = fincaSeleccionada || state.realizoAnalisisFertilidad != null
 
         pasoCultivoComplete && pasoRendimientoComplete && pasoNutrienteComplete && pasoAbonoVerdeComplete && pasoSueloComplete && pasoFertilidadComplete
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), initialValue = false)
 
     /**
      * Controla la visibilidad de los pasos del formulario basándose en la progresión del usuario.
@@ -484,25 +491,27 @@ class CalculatorViewModel @Inject constructor(
         
         // Paso 2: Tipo de Suelo (Si no hay finca)
         val step2Visible = !fincaSeleccionada
-        val step2Complete = fincaSeleccionada || (state.conoceTipoSuelo != null && (
-            (state.conoceTipoSuelo == true && state.selectedTipoSuelo != null) ||
-            (state.conoceTipoSuelo == false && state.selectedSoilCharResId != null)
-        ))
+        val step2Complete = fincaSeleccionada || when (state.conoceTipoSuelo) {
+            true -> state.selectedTipoSuelo != null
+            false -> state.selectedSoilCharResId != null
+            null -> false
+        }
         
         // Paso 3: Análisis de Fertilidad (Si no hay finca, tras suelo)
         val step3Visible = !fincaSeleccionada && step2Complete
-        val step3Complete = fincaSeleccionada || (state.realizoAnalisisFertilidad == false && state.selectedProvincia != null && state.selectedMunicipio != null)
+        val step3Complete = fincaSeleccionada || state.realizoAnalisisFertilidad != null
         
         // Paso 4: Tipo de Cultivo (Tras Fertilidad o Finca)
-        val step4Visible = fincaSeleccionada || (step3Complete && state.realizoAnalisisFertilidad == false)
+        val step4Visible = fincaSeleccionada || step3Complete
         val step4Complete = state.selectedCultivo != null
         
         // Paso 5: Rendimiento de la Finca (Tras Cultivo)
         val step5Visible = step4Complete
-        val step5Complete = state.conoceRendimiento != null && (
-            (state.conoceRendimiento == false) ||
-            (state.conoceRendimiento == true && state.rendimientoValue.isNotEmpty())
-        )
+        val step5Complete = when (state.conoceRendimiento) {
+            false -> true
+            true -> state.rendimientoValue.isNotEmpty()
+            null -> false
+        }
         
         // Paso 6: Tipo de Nutrientes Disponibles (Tras Rendimiento)
         val step6Visible = step5Complete
@@ -531,7 +540,7 @@ data class VisibleSteps(
     val step4: Boolean = false,
     val step5: Boolean = false,
     val step6: Boolean = false,
-    val step7: Boolean = false
+    val step7: Boolean = false,
 )
 
 /**
@@ -541,27 +550,27 @@ data class CalculatorUiState(
     val selectedFinca: String? = null,
     val autoLoadedSuelo: Suelos? = null,
     val autoLoadedAbono: AbonoOrganico? = null,
-    
+
     val conoceTipoSuelo: Boolean? = null,
     val selectedTipoSuelo: String? = null,
     val selectedSoilCharResId: Int? = null,
-    
+
     val realizoAnalisisFertilidad: Boolean? = null,
     val selectedProvincia: String? = null,
     val selectedMunicipio: String? = null,
-    
+
     val selectedCultivo: Cultivos? = null,
-    
+
     val conoceRendimiento: Boolean? = null,
     val rendimientoValue: String = "",
     val selectedYieldUnit: YieldUnit = YieldUnit.TONELADAS_HA,
-    
+
     val selectedNutrienteDisponible: FertAbOrg? = null,
-    
+
     val utilizoAbonoVerde: Boolean? = null,
     val selectedAbonoVerde: FertAbOrg? = null,
-    
-    val calculationResult: CalculationResult? = null
+
+    val calculationResult: CalculationResult? = null,
 )
 
 data class CalculationResult(
@@ -571,7 +580,7 @@ data class CalculationResult(
     val dosisAplicar: Double? = null,
     val nutrienteBase: String? = null,
     val nutrienteFaltante: String? = null,
-    val partialResults: PartialResults? = null
+    val partialResults: PartialResults? = null,
 )
 
 data class PartialResults(
@@ -586,26 +595,5 @@ data class PartialResults(
     val nutrientFertName: String,
     val avContribution: Double? = null,
     val avName: String? = null,
-    val remainingNeed: Double? = null
+    val remainingNeed: Double? = null,
 )
-
-object CubaGeography {
-    val municipiosByProvince = mapOf(
-        "Pinar del Río" to listOf("Sandino", "Mantua", "Minas de Matahambre", "Viñales", "La Palma", "Los Palacios", "Consolación del Sur", "Pinar del Río", "San Luis", "San Juan y Martínez", "Guane"),
-        "Artemisa" to listOf("Bahía Honda", "Mariel", "Guanajay", "Caimito", "Bauta", "San Antonio de los Baños", "Güira de Melena", "Alquízar", "Artemisa", "San Cristóbal", "Candelaria"),
-        "La Habana" to listOf("Playa", "Plaza de la Revolución", "Centro Habana", "Habana Vieja", "Regla", "Habana del Este", "Guanabacoa", "San Miguel del Padrón", "Diez de Octubre", "Cerro", "Marianao", "La Lisa", "Boyeros", "Arroyo Naranjo", "Cotorro"),
-        "Mayabeque" to listOf("Bejucal", "San José de las Lajas", "Jaruco", "Santa Cruz del Norte", "Madruga", "Nueva Paz", "San Nicolás", "Güines", "Melena del Sur", "Batabanó", "Quivicán"),
-        "Matanzas" to listOf("Matanzas", "Cárdenas", "Martí", "Colón", "Perico", "Jovellanos", "Pedro Betancourt", "Limonar", "Unión de Reyes", "Ciénaga de Zapata", "Jagüey Grande", "Calimete", "Los Arabos"),
-        "Villa Clara" to listOf("Corralillo", "Quemado de Güines", "Sagua la Grande", "Encrucijada", "Camajuaní", "Caibarién", "Remedios", "Placetas", "Santa Clara", "Cifuentes", "Santo Domingo", "Ranchuelo", "Manicaragua"),
-        "Cienfuegos" to listOf("Aguada de Pasajeros", "Rodas", "Palmira", "Lajas", "Cruces", "Cumanayagua", "Cienfuegos", "Abreus"),
-        "Sancti Spíritus" to listOf("Yaguajay", "Jatibonico", "Taguasco", "Cabaiguán", "Fomento", "Trinidad", "Sancti Spíritus", "La Sierpe"),
-        "Ciego de Ávila" to listOf("Chambas", "Morón", "Bolivia", "Primero de Enero", "Ciro Redondo", "Florencia", "Majagua", "Ciego de Ávila", "Venezuela", "Baraguá"),
-        "Camagüey" to listOf("Carlos Manuel de Céspedes", "Esmeralda", "Sierra de Cubitas", "Minas", "Nuevitas", "Guáimaro", "Sibanicú", "Camagüey", "Florida", "Vertientes", "Jimaguayú", "Najasa", "Santa Cruz del Sur"),
-        "Las Tunas" to listOf("Manatí", "Puerto Padre", "Jesús Menéndez", "Majibacoa", "Las Tunas", "Jobabo", "Colombia", "Amancio"),
-        "Holguín" to listOf("Gibara", "Rafael Freyre", "Banes", "Antilla", "Báguanos", "Holguín", "Calixto García", "Cacocum", "Urbano Noris", "Cueto", "Mayarí", "Frank País", "Sagua de Tánamo", "Moa"),
-        "Granma" to listOf("Río Cauto", "Cauto Cristo", "Jiguaní", "Bayamo", "Yara", "Manzanillo", "Campechuela", "Media Luna", "Niquero", "Pilón", "Bartolomé Masó", "Buey Arriba", "Guisa"),
-        "Santiago de Cuba" to listOf("Contramaestre", "Mella", "San Luis", "Segundo Frente", "Songo - La Maya", "Santiago de Cuba", "Palma Soriano", "Tercer Frente", "Guamá"),
-        "Guantánamo" to listOf("El Salvador", "Manuel Tames", "Yateras", "Baracoa", "Maisí", "Imías", "San Antonio del Sur", "Caimanera", "Guantánamo", "Niceto Pérez"),
-        "Isla de la Juventud" to listOf("Isla de la Juventud")
-    )
-}

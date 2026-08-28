@@ -41,6 +41,25 @@ android {
         compose = true
         buildConfig = true
     }
+    packaging {
+        jniLibs {
+            keepDebugSymbols.add("**/libandroidx.graphics.path.so")
+            keepDebugSymbols.add("**/libdatastore_shared_counter.so")
+            keepDebugSymbols.add("**/libsentry-android.so")
+            keepDebugSymbols.add("**/libsentry.so")
+        }
+    }
+}
+
+hilt {
+    enableAggregatingTask = true
+}
+
+// FIX DEFINITIVO: Desactiva Kapt por completo para evitar que Moshi dispare la advertencia de deprecación.
+// Esto es necesario porque algunos plugins (como Hilt) pueden habilitar Kapt de forma implícita.
+// Como todo el proyecto ya usa KSP, Kapt es redundante.
+tasks.matching { it.name.contains("kapt", ignoreCase = true) }.configureEach {
+    enabled = false
 }
 
 hilt {
@@ -59,11 +78,7 @@ sentry {
     includeNativeSources.set(false)
 }
 
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
-    }
-}
+// No longer needed as we updated Hilt and aligned KSP
 
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
@@ -121,4 +136,10 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.sentry.android)
     implementation(libs.sentry.compose)
+}
+
+kotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
+    }
 }

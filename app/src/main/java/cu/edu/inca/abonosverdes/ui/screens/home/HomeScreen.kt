@@ -15,7 +15,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.work.WorkInfo
@@ -223,8 +222,7 @@ fun SyncStatusCard(workInfo: WorkInfo?) {
         WorkInfo.State.RUNNING -> stringResource(R.string.sync_running)
         WorkInfo.State.ENQUEUED -> stringResource(R.string.sync_enqueued)
         WorkInfo.State.SUCCEEDED, WorkInfo.State.FAILED -> {
-            val locale = LocalConfiguration.current.locales[0]
-            val date = SimpleDateFormat("HH:mm", locale).format(Date())
+            val date = SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date())
             stringResource(R.string.sync_last_attempt, date)
         }
         else -> stringResource(R.string.sync_unknown)
