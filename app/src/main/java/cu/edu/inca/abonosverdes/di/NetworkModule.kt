@@ -3,6 +3,7 @@ package cu.edu.inca.abonosverdes.di
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import cu.edu.inca.abonosverdes.data.remote.ApiService
+import cu.edu.inca.abonosverdes.data.remote.GithubApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -43,6 +45,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @Named("MainRetrofit")
     fun provideRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
         return Retrofit.Builder()
             .baseUrl(ApiService.BASE_URL)
@@ -53,7 +56,24 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): ApiService {
+    @Named("GithubRetrofit")
+    fun provideGithubRetrofit(okHttpClient: OkHttpClient, moshi: Moshi): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(GithubApiService.BASE_URL)
+            .client(okHttpClient)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideApiService(@Named("MainRetrofit") retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGithubApiService(@Named("GithubRetrofit") retrofit: Retrofit): GithubApiService {
+        return retrofit.create(GithubApiService::class.java)
     }
 }

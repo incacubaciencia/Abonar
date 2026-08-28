@@ -38,6 +38,7 @@ import cu.edu.inca.abonosverdes.ui.screens.onboarding.OnboardingScreen
 import cu.edu.inca.abonosverdes.ui.screens.splash.SplashScreen
 import cu.edu.inca.abonosverdes.ui.screens.guia.GuiaScreen
 import cu.edu.inca.abonosverdes.ui.viewmodel.MainViewModel
+import cu.edu.inca.abonosverdes.ui.components.UpdateChecker
 import io.sentry.Sentry
 import io.sentry.Breadcrumb
 import kotlinx.coroutines.launch
@@ -46,13 +47,16 @@ import kotlinx.coroutines.launch
 @Composable
 fun AbonarNavHost(
     showOnboarding: Boolean,
-    onOnboardingFinished: () -> Unit
+    onOnboardingFinished: () -> Unit,
 ) {
-    val navKeySaver = listSaver<MutableState<List<NavKey>>, Destination>(
+    // Verificar actualizaciones de GitHub
+    UpdateChecker()
+
+    val navKeySaver = listSaver(
         save = { state -> state.value.map { it as Destination } },
         restore = { list -> mutableStateOf(list.map { it as NavKey }) }
     )
-    var backStackState = rememberSaveable(saver = navKeySaver) { mutableStateOf(listOf<NavKey>(Destination.Splash)) }
+    val backStackState = rememberSaveable(saver = navKeySaver) { mutableStateOf(listOf<NavKey>(Destination.Splash)) }
     var backStack by backStackState
 
     // Registrar cambios de navegación en Sentry
@@ -80,9 +84,11 @@ fun AbonarNavHost(
 
     val myEntryProvider = entryProvider<NavKey> {
         entry(Destination.Splash as NavKey) {
-            SplashScreen(onTimeout = {
-                backStack = if (showOnboarding) listOf(Destination.Onboarding) else listOf(Destination.Home)
-            })
+            SplashScreen(
+                onTimeout = {
+                    backStack = if (showOnboarding) listOf(Destination.Onboarding) else listOf(Destination.Home)
+                }
+            )
         }
         entry(Destination.Onboarding as NavKey) {
             OnboardingScreen(onFinished = {
@@ -92,8 +98,8 @@ fun AbonarNavHost(
         }
         entry(Destination.Home as NavKey) {
             HomeScreen(
-                onNavigateToCalculator = { backStack = backStack + Destination.Calculadora },
-                onNavigateToGuia = { backStack = backStack + Destination.Guia },
+                onNavigateToCalculator = { backStack += Destination.Calculadora },
+                onNavigateToGuia = { backStack += Destination.Guia },
                 onOpenDrawer = { scope.launch { drawerState.open() } }
             )
         }
@@ -125,7 +131,7 @@ fun AbonarNavHost(
         }
     }
 
-    if (currentDestination is Destination.Splash || currentDestination is Destination.Onboarding) {
+    if ((currentDestination is Destination.Splash) || (currentDestination is Destination.Onboarding)) {
         NavDisplay(
             backStack = backStack,
             onBack = { if (backStack.size > 1) backStack = backStack.dropLast(1) },
@@ -149,7 +155,7 @@ fun AbonarNavHost(
                             .fillMaxWidth()
                             .height(180.dp)
                     ) {
-                        androidx.compose.foundation.Image(
+                        Image(
                             painter = painterResource(id = R.drawable.cultivo_general),
                             contentDescription = null,
                             modifier = Modifier
@@ -162,7 +168,7 @@ fun AbonarNavHost(
                                 .fillMaxSize()
                                 .background(Color.Black.copy(alpha = 0.2f))
                         )
-                        androidx.compose.foundation.Image(
+                        Image(
                             painter = painterResource(id = R.drawable.nombre),
                             contentDescription = stringResource(R.string.logo_desc),
                             modifier = Modifier
