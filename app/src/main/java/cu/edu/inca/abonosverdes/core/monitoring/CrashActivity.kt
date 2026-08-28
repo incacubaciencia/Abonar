@@ -64,7 +64,7 @@ fun CrashDialog(onConfirm: () -> Unit, onDismiss: () -> Unit) {
         title = { Text(text = "Error inesperado") },
         text = {
             Text(
-                text = "Se ha producido un error inesperado. ¿Deseas enviar un informe anónimo a los desarrolladores para ayudarnos a solucionar el problema?"
+                text = "Se ha producido un error inesperado. ¿Deseas enviar un informe anónimo a los desarrolladores para ayudarnos a solucionar el problema?",
             )
         },
         confirmButton = {

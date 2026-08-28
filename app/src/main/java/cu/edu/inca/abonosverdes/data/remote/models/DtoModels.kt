@@ -9,22 +9,22 @@ import java.util.*
 @JsonClass(generateAdapter = true)
 data class AbonoOrganicoDto(
     val id: Int,
-    @Json(name = "FechaMuestreo") val fechaMuestreo: String?,
-    @Json(name = "Municipio") val municipio: String?,
+    @param:Json(name = "FechaMuestreo") val fechaMuestreo: String?,
+    @param:Json(name = "Municipio") val municipio: String?,
     val finca: String?,
-    @Json(name = "TipoAbono") val tipoAbono: String?,
+    @param:Json(name = "TipoAbono") val tipoAbono: String?,
     val humPercent: Double?,
     val relCN: Double?,
-    @Json(name = "MO") val mo: Double?,
-    @Json(name = "N") val n: Double?,
-    @Json(name = "P") val p: Double?,
-    @Json(name = "K") val k: Double?
+    @param:Json(name = "MO") val mo: Double?,
+    @param:Json(name = "N") val n: Double?,
+    @param:Json(name = "P") val p: Double?,
+    @param:Json(name = "K") val k: Double?,
 ) {
     fun toEntity(): AbonoOrganico {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val date = try {
             fechaMuestreo?.let { sdf.parse(it) } ?: Date()
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             Date()
         }
         return AbonoOrganico(
@@ -51,9 +51,9 @@ data class CultivosDto(
     val rendimientoTH: Double?,
     val phMin: Double?,
     val phMax: Double?,
-    @Json(name = "N") val n: Double?,
-    @Json(name = "P") val p: Double?,
-    @Json(name = "K") val k: Double?
+    @param:Json(name = "N") val n: Double?,
+    @param:Json(name = "P") val p: Double?,
+    @param:Json(name = "K") val k: Double?,
 ) {
     fun toEntity() = Cultivos(
         id = id ?: 0,
@@ -72,13 +72,13 @@ data class CultivosDto(
 data class FertAbOrgDto(
     val id: Int,
     val tipo: String?,
-    @Json(name = "Nomb") val nomb: String?,
+    @param:Json(name = "Nomb") val nomb: String?,
     val humPercent: Double?,
     val relCN: String?,
-    @Json(name = "MO") val mo: Double?,
-    @Json(name = "N") val n: Double?,
-    @Json(name = "P") val p: Double?,
-    @Json(name = "K") val k: Double?
+    @param:Json(name = "MO") val mo: Double?,
+    @param:Json(name = "N") val n: Double?,
+    @param:Json(name = "P") val p: Double?,
+    @param:Json(name = "K") val k: Double?,
 ) {
     fun toEntity() = FertAbOrg(
         id = id,
@@ -99,14 +99,14 @@ data class SuelosDto(
     val provincia: String?,
     val municipio: String?,
     val finca: String?,
-    @Json(name = "tipo_suelo") val tipoSuelo: String?,
+    @param:Json(name = "tipo_suelo") val tipoSuelo: String?,
     val ph: Double?,
-    @Json(name = "moPercent") val moPercent: Double?,
-    @Json(name = "Ca") val ca: Double?,
-    @Json(name = "Mg") val mg: Double?,
-    @Json(name = "K") val k: Double?,
-    @Json(name = "Na") val na: Double?,
-    @Json(name = "P") val p: Double?
+    @param:Json(name = "moPercent") val moPercent: Double?,
+    @param:Json(name = "Ca") val ca: Double?,
+    @param:Json(name = "Mg") val mg: Double?,
+    @param:Json(name = "K") val k: Double?,
+    @param:Json(name = "Na") val na: Double?,
+    @param:Json(name = "P") val p: Double?,
 ) {
     fun toEntity() = Suelos(
         id = id,
