@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -15,7 +17,6 @@ android {
     defaultConfig {
         applicationId = "cu.edu.inca.abonosverdes"
         minSdk = 24
-        //noinspection TargetSdkUpdated
         targetSdk = 37
         versionCode = 7
         versionName = "1.0.10"
@@ -33,14 +34,17 @@ android {
             )
         }
     }
+    
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     buildFeatures {
         compose = true
         buildConfig = true
     }
+
     packaging {
         jniLibs {
             keepDebugSymbols.add("**/libandroidx.graphics.path.so")
@@ -55,41 +59,48 @@ hilt {
     enableAggregatingTask = true
 }
 
-// FIX DEFINITIVO: Bloqueo de Kapt para silenciar advertencias de Moshi
-tasks.matching { it.name.contains("kapt", ignoreCase = true) }.configureEach {
-    enabled = false
-}
-
-// Exclusión de Moshi Codegen de configuraciones que no sean KSP
+// FIX DEFINITIVO PARA MOSHI KAPT WARNING:
+// Forzamos la exclusión de Moshi Codegen de todas las rutas de procesamiento que no sean KSP.
 configurations.all {
-    if (name.contains("kapt", ignoreCase = true) || name.contains("annotationProcessor", ignoreCase = true)) {
+    if (name.contains("kapt", ignoreCase = true) || 
+        name.contains("annotationProcessor", ignoreCase = true) ||
+        name.contains("hilt", ignoreCase = true)) {
         exclude(group = "com.squareup.moshi", module = "moshi-kotlin-codegen")
     }
+}
+
+// Desactiva físicamente las tareas de Kapt para evitar que se ejecuten e informen avisos.
+tasks.matching { it.name.contains("kapt", ignoreCase = true) }.configureEach {
+    enabled = false
 }
 
 sentry {
     // URL de tu servidor self-hosted
     url.set("https://sentry.inca.edu.cu/")
     
-    // Detecta si estamos en CI con el token configurado
-    val isCi = System.getenv("SENTRY_AUTH_TOKEN") != null
+    // Inyectamos el token directamente desde la variable de entorno
+    val token = System.getenv("SENTRY_AUTH_TOKEN")
+    authToken.set(token)
     
-    includeProguardMapping.set(isCi)
-    autoUploadProguardMapping.set(isCi)
-    autoUploadSourceContext.set(isCi)
-    uploadNativeSymbols.set(isCi)
-    includeNativeSources.set(isCi)
+    val hasToken = !token.isNullOrEmpty()
+    
+    // Solo intenta subir si hay un token, evitando que el build falle en CI
+    includeProguardMapping.set(hasToken)
+    autoUploadProguardMapping.set(hasToken)
+    autoUploadSourceContext.set(hasToken)
+    uploadNativeSymbols.set(hasToken)
+    includeNativeSources.set(hasToken)
     
     tracingInstrumentation {
+        // Desactivado para evitar errores de clases no resueltas en compilación
         enabled.set(false)
     }
 }
 
-// Configuración global del compilador Kotlin
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+// Silencia los 24 avisos de @param:Json para Kotlin 2.0+
+tasks.withType<KotlinCompile>().configureEach {
     compilerOptions {
-        // Resuelve la advertencia de anotaciones en constructor para Kotlin 2.0+
-        if (freeCompilerArgs.get().none { it == "-Xannotation-default-target=param-property" }) {
+        if (!freeCompilerArgs.get().contains("-Xannotation-default-target=param-property")) {
             freeCompilerArgs.add("-Xannotation-default-target=param-property")
         }
     }

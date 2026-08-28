@@ -8,13 +8,13 @@ import java.util.*
 
 @JsonClass(generateAdapter = true)
 data class AbonoOrganicoDto(
-    val id: Int,
+    @param:Json(name = "id") val id: Int,
     @param:Json(name = "FechaMuestreo") val fechaMuestreo: String?,
     @param:Json(name = "Municipio") val municipio: String?,
-    val finca: String?,
+    @param:Json(name = "finca") val finca: String?,
     @param:Json(name = "TipoAbono") val tipoAbono: String?,
-    val humPercent: Double?,
-    val relCN: Double?,
+    @param:Json(name = "humPercent") val humPercent: Double?,
+    @param:Json(name = "relCN") val relCN: Double?,
     @param:Json(name = "MO") val mo: Double?,
     @param:Json(name = "N") val n: Double?,
     @param:Json(name = "P") val p: Double?,
@@ -45,12 +45,12 @@ data class AbonoOrganicoDto(
 
 @JsonClass(generateAdapter = true)
 data class CultivosDto(
-    val id: Int?,
-    val tipo: String?,
-    val nombre: String?,
-    val rendimientoTH: Double?,
-    val phMin: Double?,
-    val phMax: Double?,
+    @param:Json(name = "id") val id: Int?,
+    @param:Json(name = "tipo") val tipo: String?,
+    @param:Json(name = "nombre") val nombre: String?,
+    @param:Json(name = "rendimientoTH") val rendimientoTH: Double?,
+    @param:Json(name = "phMin") val phMin: Double?,
+    @param:Json(name = "phMax") val phMax: Double?,
     @param:Json(name = "N") val n: Double?,
     @param:Json(name = "P") val p: Double?,
     @param:Json(name = "K") val k: Double?,
@@ -70,11 +70,11 @@ data class CultivosDto(
 
 @JsonClass(generateAdapter = true)
 data class FertAbOrgDto(
-    val id: Int,
-    val tipo: String?,
+    @param:Json(name = "id") val id: Int,
+    @param:Json(name = "tipo") val tipo: String?,
     @param:Json(name = "Nomb") val nomb: String?,
-    val humPercent: Double?,
-    val relCN: String?,
+    @param:Json(name = "humPercent") val humPercent: Double?,
+    @param:Json(name = "relCN") val relCN: String?,
     @param:Json(name = "MO") val mo: Double?,
     @param:Json(name = "N") val n: Double?,
     @param:Json(name = "P") val p: Double?,
@@ -95,12 +95,12 @@ data class FertAbOrgDto(
 
 @JsonClass(generateAdapter = true)
 data class SuelosDto(
-    val id: Int,
-    val provincia: String?,
-    val municipio: String?,
-    val finca: String?,
+    @param:Json(name = "id") val id: Int,
+    @param:Json(name = "provincia") val provincia: String?,
+    @param:Json(name = "municipio") val municipio: String?,
+    @param:Json(name = "finca") val finca: String?,
     @param:Json(name = "tipo_suelo") val tipoSuelo: String?,
-    val ph: Double?,
+    @param:Json(name = "ph") val ph: Double?,
     @param:Json(name = "moPercent") val moPercent: Double?,
     @param:Json(name = "Ca") val ca: Double?,
     @param:Json(name = "Mg") val mg: Double?,
