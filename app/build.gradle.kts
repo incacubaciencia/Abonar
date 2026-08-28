@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.plugin.serialization)
     alias(libs.plugins.hilt)
     alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.sentry)
 }
 
 android {
@@ -16,8 +17,8 @@ android {
         minSdk = 24
         //noinspection TargetSdkUpdated
         targetSdk = 37
-        versionCode = 6
-        versionName = "1.0.9"
+        versionCode = 7
+        versionName = "1.0.10"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -96,4 +97,6 @@ dependencies {
     implementation(libs.androidx.hilt.work)
     "ksp"(libs.androidx.hilt.compiler)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.sentry.android)
+    implementation(libs.sentry.compose)
 }

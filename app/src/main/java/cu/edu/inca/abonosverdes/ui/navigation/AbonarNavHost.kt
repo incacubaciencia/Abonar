@@ -38,6 +38,8 @@ import cu.edu.inca.abonosverdes.ui.screens.onboarding.OnboardingScreen
 import cu.edu.inca.abonosverdes.ui.screens.splash.SplashScreen
 import cu.edu.inca.abonosverdes.ui.screens.guia.GuiaScreen
 import cu.edu.inca.abonosverdes.ui.viewmodel.MainViewModel
+import io.sentry.Sentry
+import io.sentry.Breadcrumb
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -52,6 +54,20 @@ fun AbonarNavHost(
     )
     var backStackState = rememberSaveable(saver = navKeySaver) { mutableStateOf(listOf<NavKey>(Destination.Splash)) }
     var backStack by backStackState
+
+    // Registrar cambios de navegación en Sentry
+    LaunchedEffect(backStack) {
+        val current = backStack.lastOrNull()?.toString() ?: "Unknown"
+        val breadcrumb = Breadcrumb().apply {
+            type = "navigation"
+            category = "navigation"
+            message = "Navegación a $current"
+            setData("from", if (backStack.size > 1) backStack[backStack.size - 2].toString() else "None")
+            setData("to", current)
+        }
+        Sentry.addBreadcrumb(breadcrumb)
+    }
+
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val viewModel: MainViewModel = viewModel()

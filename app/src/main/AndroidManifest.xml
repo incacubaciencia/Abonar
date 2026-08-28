@@ -39,6 +39,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".core.monitoring.CrashActivity"
+            android:exported="false"
+            android:process=":crash"
+            android:theme="@style/Theme.Abonar" />
+
+        <meta-data android:name="io.sentry.auto-init" android:value="false" />
+
     </application>
 
 </manifest>

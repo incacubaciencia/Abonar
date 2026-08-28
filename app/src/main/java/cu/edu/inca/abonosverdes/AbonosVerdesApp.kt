@@ -26,6 +26,10 @@ class AbonosVerdesApp : Application(), Configuration.Provider {
      */
     override fun onCreate() {
         super.onCreate()
+        
+        // Inicializar Sentry con el DSN y configuraciones personalizadas
+        cu.edu.inca.abonosverdes.core.monitoring.SentryManager.init(this)
+
         // Ensure WorkManager is initialized with the HiltWorkerFactory
         // Although Configuration.Provider should handle this, manual initialization 
         // can sometimes resolve timing issues in certain environments.
