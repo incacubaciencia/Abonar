@@ -53,7 +53,9 @@ fun AbonarNavHost(
 
     val navKeySaver = listSaver(
         save = { state -> state.value.map { it as Destination } },
-        restore = { list -> mutableStateOf(list.map { it as NavKey }) }
+        restore = { list -> 
+            mutableStateOf(list.map { it as NavKey }) 
+        },
     )
     val backStackState = rememberSaveable(saver = navKeySaver) { mutableStateOf(listOf<NavKey>(Destination.Splash)) }
     var backStack by backStackState

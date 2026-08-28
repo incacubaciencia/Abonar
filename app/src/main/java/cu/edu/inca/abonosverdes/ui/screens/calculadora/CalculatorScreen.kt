@@ -27,7 +27,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import cu.edu.inca.abonosverdes.ui.theme.AbonarTheme
 import cu.edu.inca.abonosverdes.ui.viewmodel.CalculatorUiState
 import cu.edu.inca.abonosverdes.ui.viewmodel.VisibleSteps
-import java.util.Locale
 import cu.edu.inca.abonosverdes.ui.viewmodel.CalculatorViewModel
 import kotlinx.coroutines.launch
 
@@ -168,7 +167,7 @@ fun CalculatorContent(
                         label = stringResource(R.string.calc_finca_optional),
                         options = allFincas,
                         selectedOption = uiState.selectedFinca ?: "",
-                        onOptionSelected = { onFincaSelected(if (it.isEmpty()) null else it) }
+                        onOptionSelected = { onFincaSelected(it.ifEmpty { null }) },
                     )
                     if (uiState.selectedFinca != null) {
                         InfoCard(text = stringResource(R.string.calc_finca_auto_loaded, uiState.selectedFinca))
@@ -442,13 +441,6 @@ fun ResultSection(
     }
 }
 
-@Composable
-fun ResultRow(label: String, value: String) {
-    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-        Text(text = label, style = MaterialTheme.typography.bodySmall, modifier = Modifier.weight(1f))
-        Text(text = value, style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold)
-    }
-}
 
 /**
  * Contenedor visual para cada paso del formulario.

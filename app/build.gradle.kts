@@ -29,7 +29,7 @@ android {
             isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -55,24 +55,44 @@ hilt {
     enableAggregatingTask = true
 }
 
-// FIX DEFINITIVO: Desactiva Kapt por completo para evitar que Moshi dispare la advertencia de deprecación.
-// Esto es necesario porque algunos plugins (como Hilt) pueden habilitar Kapt de forma implícita.
+// FIX DEFINITIVO: Bloqueo de Kapt para silenciar advertencias de Moshi
 tasks.matching { it.name.contains("kapt", ignoreCase = true) }.configureEach {
     enabled = false
 }
 
-// Evita que Moshi se incluya en cualquier configuración de Kapt residual que Hilt pueda crear
+// Exclusión de Moshi Codegen de configuraciones que no sean KSP
 configurations.all {
-    if (name.contains("kapt", ignoreCase = true)) {
+    if (name.contains("kapt", ignoreCase = true) || name.contains("annotationProcessor", ignoreCase = true)) {
         exclude(group = "com.squareup.moshi", module = "moshi-kotlin-codegen")
     }
 }
 
 sentry {
-    includeProguardMapping.set(false)
-    autoUploadProguardMapping.set(false)
-    uploadNativeSymbols.set(false)
-    includeNativeSources.set(false)
+    // URL de tu servidor self-hosted
+    url.set("https://sentry.inca.edu.cu/")
+    
+    // Detecta si estamos en CI con el token configurado
+    val isCi = System.getenv("SENTRY_AUTH_TOKEN") != null
+    
+    includeProguardMapping.set(isCi)
+    autoUploadProguardMapping.set(isCi)
+    autoUploadSourceContext.set(isCi)
+    uploadNativeSymbols.set(isCi)
+    includeNativeSources.set(isCi)
+    
+    tracingInstrumentation {
+        enabled.set(false)
+    }
+}
+
+// Configuración global del compilador Kotlin
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        // Resuelve la advertencia de anotaciones en constructor para Kotlin 2.0+
+        if (freeCompilerArgs.get().none { it == "-Xannotation-default-target=param-property" }) {
+            freeCompilerArgs.add("-Xannotation-default-target=param-property")
+        }
+    }
 }
 
 dependencies {
@@ -117,7 +137,6 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.runner)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
@@ -131,10 +150,4 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.sentry.android)
     implementation(libs.sentry.compose)
-}
-
-kotlin {
-    compilerOptions {
-        freeCompilerArgs.add("-Xannotation-default-target=param-property")
-    }
 }
