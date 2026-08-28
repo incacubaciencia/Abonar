@@ -6,4 +6,5 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.plugin.serialization) apply false
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.kotlin.parcelize) apply false
+    alias(libs.plugins.sentry) apply false
 }

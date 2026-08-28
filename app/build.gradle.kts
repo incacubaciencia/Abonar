@@ -43,6 +43,19 @@ android {
     }
 }
 
+sentry {
+    includeProguardMapping.set(false)
+    autoUploadProguardMapping.set(false)
+    uploadNativeSymbols.set(false)
+    includeNativeSources.set(false)
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+        freeCompilerArgs.add("-Xannotation-default-target=param-property")
+    }
+}
+
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.accompanist.permissions)
