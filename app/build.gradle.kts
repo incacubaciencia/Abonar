@@ -18,8 +18,8 @@ android {
         applicationId = "cu.edu.inca.abonosverdes"
         minSdk = 24
         targetSdk = 37
-        versionCode = 10
-        versionName = "1.0.12"
+        versionCode = 11
+        versionName = "1.0.14"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
