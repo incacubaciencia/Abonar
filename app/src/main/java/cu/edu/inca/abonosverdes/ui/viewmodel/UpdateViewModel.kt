@@ -14,6 +14,7 @@ import androidx.lifecycle.viewModelScope
 import cu.edu.inca.abonosverdes.data.repository.UpdateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import io.sentry.Sentry
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -107,18 +108,26 @@ class UpdateViewModel @Inject constructor(
             }
         }
 
-        val contentUri = FileProvider.getUriForFile(
-            context,
-            "${context.packageName}.fileprovider",
-            file,
-        )
+        try {
+            val contentUri = FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.fileprovider",
+                file,
+            )
 
-        val installIntent = Intent(Intent.ACTION_VIEW).apply {
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            setDataAndType(contentUri, "application/vnd.android.package-archive")
+            val installIntent = Intent(Intent.ACTION_VIEW).apply {
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                setDataAndType(contentUri, "application/vnd.android.package-archive")
+            }
+            context.startActivity(installIntent)
+        } catch (e: Exception) {
+            // Report explicitly to Sentry and flush as requested
+            Sentry.captureException(e)
+            Sentry.flush(2000)
+            // Also notify via SentryManager helper if available
+            // SentryManager.captureFatal(e) 
         }
-        context.startActivity(installIntent)
     }
 
     override fun onCleared() {
