@@ -41,7 +41,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun CalculatorScreen(
     onOpenDrawer: () -> Unit,
-    viewModel: CalculatorViewModel = viewModel()
+    viewModel: CalculatorViewModel = viewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val visibleSteps by viewModel.visibleSteps.collectAsStateWithLifecycle()
@@ -167,7 +167,7 @@ fun CalculatorContent(
                         label = stringResource(R.string.calc_finca_optional),
                         options = allFincas,
                         selectedOption = uiState.selectedFinca ?: "",
-                        onOptionSelected = { onFincaSelected(it.ifEmpty { null }) },
+                        onOptionSelected = { onFincaSelected(it.ifEmpty { null }) }
                     )
                     if (uiState.selectedFinca != null) {
                         InfoCard(text = stringResource(R.string.calc_finca_auto_loaded, uiState.selectedFinca))
@@ -499,7 +499,7 @@ fun SearchableDropdown(
     selectedOption: String,
     onOptionSelected: (String) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(value = false) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -511,7 +511,7 @@ fun SearchableDropdown(
             readOnly = true,
             label = { Text(label) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier.fillMaxWidth().menuAnchor(MenuAnchorType.PrimaryNotEditable)
+            modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
         )
         ExposedDropdownMenu(
             expanded = expanded,
@@ -538,7 +538,7 @@ fun SoilCharacteristicDropdown(
     selectedOptionResId: Int?,
     onOptionSelected: (cu.edu.inca.abonosverdes.ui.viewmodel.SoilPhysicalCharacteristic) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(value = false) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -550,7 +550,7 @@ fun SoilCharacteristicDropdown(
             readOnly = true,
             label = { Text(label) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier.fillMaxWidth().menuAnchor(MenuAnchorType.PrimaryNotEditable)
+            modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
         )
         ExposedDropdownMenu(
             expanded = expanded,
@@ -577,7 +577,7 @@ fun CultivoDropdown(
     selectedOption: Cultivos?,
     onOptionSelected: (Cultivos) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(value = false) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -589,7 +589,7 @@ fun CultivoDropdown(
             readOnly = true,
             label = { Text(label) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier.fillMaxWidth().menuAnchor(MenuAnchorType.PrimaryNotEditable)
+            modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
         )
         ExposedDropdownMenu(
             expanded = expanded,
@@ -616,7 +616,7 @@ fun FertilizanteDropdown(
     selectedOption: FertAbOrg?,
     onOptionSelected: (FertAbOrg) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(value = false) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -628,7 +628,7 @@ fun FertilizanteDropdown(
             readOnly = true,
             label = { Text(label) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier.fillMaxWidth().menuAnchor(MenuAnchorType.PrimaryNotEditable)
+            modifier = Modifier.fillMaxWidth().menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable)
         )
         ExposedDropdownMenu(
             expanded = expanded,
@@ -655,7 +655,7 @@ fun YieldUnitDropdown(
     onOptionSelected: (cu.edu.inca.abonosverdes.ui.viewmodel.YieldUnit) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(value = false) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -667,7 +667,7 @@ fun YieldUnitDropdown(
             onValueChange = {},
             readOnly = true,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
+            modifier = Modifier.menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable),
             textStyle = MaterialTheme.typography.bodySmall
         )
         ExposedDropdownMenu(
