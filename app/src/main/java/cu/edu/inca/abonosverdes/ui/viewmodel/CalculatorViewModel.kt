@@ -270,8 +270,12 @@ class CalculatorViewModel @Inject constructor(
 
                         if (searchTipo != null) {
                             when {
-                                state.selectedMunicipio != null -> {
-                                    suelosDao.getAllByTipoSueloAndMunicipio(searchTipo, state.selectedMunicipio)
+                                (state.selectedProvincia != null) && (state.selectedMunicipio != null) -> {
+                                    suelosDao.getAllByTipoSueloProvinciaMunicipio(
+                                        searchTipo, 
+                                        state.selectedProvincia, 
+                                        state.selectedMunicipio
+                                    )
                                 }
                                 state.selectedProvincia != null -> {
                                     suelosDao.getAllByTipoSueloAndProvincia(searchTipo, state.selectedProvincia)

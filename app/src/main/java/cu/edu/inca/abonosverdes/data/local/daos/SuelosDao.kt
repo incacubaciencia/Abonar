@@ -59,10 +59,10 @@ interface SuelosDao {
     suspend fun getAllByTipoSuelo(tipoSuelo: String): List<Suelos>
 
     /**
-     * Busca registros de suelo por tipo de suelo y municipio.
+     * Busca registros de suelo por tipo de suelo, municipio y provincia.
      */
-    @Query("SELECT * FROM suelos WHERE (tipoSuelo LIKE '%' || :tipoSuelo || '%') AND municipio = :municipio")
-    suspend fun getAllByTipoSueloAndMunicipio(tipoSuelo: String, municipio: String): List<Suelos>
+    @Query("SELECT * FROM suelos WHERE (tipoSuelo LIKE '%' || :tipoSuelo || '%') AND municipio = :municipio AND provincia = :provincia")
+    suspend fun getAllByTipoSueloProvinciaMunicipio(tipoSuelo: String, provincia: String, municipio: String): List<Suelos>
 
     /**
      * Busca registros de suelo por tipo de suelo y provincia.

@@ -124,19 +124,6 @@ fun HomeScreenContent(
                 SyncStatusCard(syncStatus)
             }
             item {
-                Button(
-                    onClick = { throw RuntimeException("Test Crash - Verificación de Sentry y GitHub Issues") },
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.error
-                    )
-                ) {
-                    Icon(Icons.Rounded.BugReport, contentDescription = null)
-                    Spacer(Modifier.width(8.dp))
-                    Text("Forzar Crash (Test Sentry)")
-                }
-            }
-            item {
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
