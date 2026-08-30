@@ -29,6 +29,8 @@ jobs:
         run: ./gradlew assembleRelease
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: sentry
+          SENTRY_PROJECT: 2
 
       - name: Sign APK
         uses: r0adkll/sign-android-release@v1
